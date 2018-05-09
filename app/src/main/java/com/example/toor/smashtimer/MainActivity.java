@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         //make list
         lv = (ListView) findViewById(R.id.listView);
-        adapter = new ArrayAdapter(this, R.layout.listview_main, cl.toArray());
+        adapter = new ArrayAdapter(this, R.layout.listview_main, cl);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
