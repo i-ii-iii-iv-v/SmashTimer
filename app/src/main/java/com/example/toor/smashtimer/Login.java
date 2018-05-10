@@ -1,5 +1,6 @@
 package com.example.toor.smashtimer;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.TextView;
+
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class Login extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
@@ -17,7 +34,8 @@ public class Login extends AppCompatActivity {
     private static final String MyPREFERENCES = "MyPrefs";
     private static final String KEY_EMAIL = "key_email";
     private static final String KEY_PASSWORD = "key_password";
-
+    TextView txtJson;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +46,40 @@ public class Login extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                final String requesturl ="https://notifood.000webhostapp.com/dLogin.php?username="+emailEditText.getText().toString()+"&password="+passwordEditText.getText().toString();
+                AsyncTask asyncTask = new AsyncTask()
+                {
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder().url(requesturl).build();
+
+                        Response response = null;
+
+                        try{
+                            response = client.newCall(request).execute();
+                            return response.body().string();
+
+                        }catch(IOException e){
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                    @Override
+                    protected void onPostExecute(Object o)
+                    {
+                        Log.e("1", o.toString());
+
+                    }
+
+                }.execute();*/
+
+
                 loginUser();
             }
         });
@@ -61,4 +110,8 @@ public class Login extends AppCompatActivity {
 
         startActivity(new Intent(this, MainActivity.class));
     }
+
+
+
+
 }

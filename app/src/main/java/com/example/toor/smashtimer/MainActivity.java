@@ -3,6 +3,7 @@ package com.example.toor.smashtimer;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         cl = new ArrayList<Child>(); //initialize list
 
         //--> test case
-        cl.add(new Child("Alex"));
-        cl.add(new Child("David"));
+        cl.add(new Child("Alex", "bb", "aa@aa.com"));
+        cl.add(new Child("David", "bb", "bb@bb.com"));
         //-->
 
         //make list
@@ -60,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
     private void startTaskActivity(int i)
     {
         Intent intent = new Intent(this, Main2Activity.class);
+        Log.e("main", cl.get(i).getid());
         intent.putExtra("Child", cl.get(i).toString());
+        intent.putExtra("childid", cl.get(i).getid());
         startActivity(intent);
     }
 
