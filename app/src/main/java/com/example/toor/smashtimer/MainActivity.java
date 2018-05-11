@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void startTaskActivity(int i)
     {
-        Intent intent = new Intent(this, Main2Activity.class);
+        Intent intent = new Intent(this, Main3Activity.class);
         Log.e("main", cl.get(i).getid());
         intent.putExtra("Child", cl.get(i).toString());
         intent.putExtra("childid", cl.get(i).getid());

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Main3Activity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabMonday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="M" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabTuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tu" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabWednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="W" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabThursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Th" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabFriday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="F" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabSaturday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sa" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabSunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Su" />
+
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="46dp"
+        android:layout_marginEnd="38dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="495dp"
+
+        android:layout_marginTop="56dp"/>
+
+</RelativeLayout>
