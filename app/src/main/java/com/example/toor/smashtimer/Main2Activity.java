@@ -45,8 +45,7 @@ public class Main2Activity extends AppCompatActivity {
         testing purpose
          */
 
-        tasklist.add(new Task("wash hands"));
-        tasklist.add(new Task("brush teeth"));
+
 
         lv = (ListView) findViewById(R.id.taskListView2);
         taskAdapter = new ArrayAdapter(this, R.layout.listview_main, tasklist);
@@ -107,7 +106,7 @@ public class Main2Activity extends AppCompatActivity {
                             }
 
                         }.execute();
-                        tasklist.add(new Task(mSpinner.getSelectedItem().toString()));
+                        //tasklist.add(new Task(mSpinner.getSelectedItem().toString()));
                         taskAdapter.notifyDataSetChanged();
                         //lv.invalidateViews();
                     }

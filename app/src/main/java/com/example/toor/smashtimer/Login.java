@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Object o)
                     {
-                        Log.e("1", o.toString());
+                        //Log.e("1", o.toString());
 
                     }
 

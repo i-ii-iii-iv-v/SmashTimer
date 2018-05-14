@@ -32,27 +32,23 @@ public class MainActivity extends AppCompatActivity {
     makes list based on cl arraylist
      */
     ArrayAdapter adapter;
-    SQLiteDatabase SQLdb;
     DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(!DatabaseHelper.checkDatabase(getApplicationContext()))
-        {
-            db = new DatabaseHelper(getApplicationContext());
-        }
 
-        SQLdb = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DatabaseHelper.DATABASE_NAME).toString(), null, OPEN_READWRITE, null);
-        DatabaseHelper.testQueries(SQLdb);
+        db = new DatabaseHelper(getApplicationContext());
 
-        cl = new ArrayList<Child>(); //initialize list
+        //--> test case*****************************************************************************************
 
-        //--> test case
-        cl.add(new Child("Alex", "bb", "aa@aa.com"));
-        cl.add(new Child("David", "bb", "bb@bb.com"));
-        //-->
+        //-->***************************************************************************
+        db.testQueries();
+
+        cl = db.initChildList(); //initialize list
+
+
 
         //make list
         lv = (ListView) findViewById(R.id.listView);
@@ -74,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, Main3Activity.class);
         Log.e("main", cl.get(i).getid());
-        intent.putExtra("Child", cl.get(i).toString());
         intent.putExtra("childid", cl.get(i).getid());
         startActivity(intent);
     }

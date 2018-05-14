@@ -83,7 +83,7 @@
         android:visibility="invisible"/>
 
     <CheckBox
-        android:id="@+id/checkBox12"
+        android:id="@+id/mBox"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
@@ -91,7 +91,7 @@
         android:layout_marginEnd="260dp" />
 
     <CheckBox
-        android:id="@+id/checkBox13"
+        android:id="@+id/tuBox"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
@@ -99,7 +99,7 @@
         android:layout_marginEnd= "220dp" />
 
     <CheckBox
-        android:id="@+id/checkBox14"
+        android:id="@+id/wBox"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
@@ -108,14 +108,14 @@
 
 
     <CheckBox
-        android:id="@+id/checkBox20"
+        android:id="@+id/thBox"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/checkBox11"
         android:layout_marginEnd="140dp" />
     <CheckBox
-        android:id="@+id/checkBox19"
+        android:id="@+id/fBox"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
@@ -123,7 +123,7 @@
         android:layout_marginEnd="100dp" />
 
     <CheckBox
-        android:id="@+id/checkBox21"
+        android:id="@+id/saBox"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
@@ -131,7 +131,7 @@
         android:layout_marginEnd="60dp" />
 
     <CheckBox
-        android:id="@+id/checkBox22"
+        android:id="@+id/suBox"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"

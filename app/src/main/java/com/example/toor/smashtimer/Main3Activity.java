@@ -2,6 +2,9 @@ package com.example.toor.smashtimer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -23,11 +26,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -42,49 +50,109 @@ public class Main3Activity extends AppCompatActivity {
     ArrayList<Task>[] tasklist;
     ArrayAdapter[] taskAdapter;
     ListView lv;
-
+    DatabaseHelper db;
+    CheckBox checkBoxes[];
     FloatingActionButton fab;
     int tabIndex;
+    TabLayout tabLayout;
+    SwipeMenuListView lvc;
+    SwipeMenuCreator creator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
         Intent intent = getIntent();
-        String childName = intent.getStringExtra("Child");
         final String childId = intent.getStringExtra("childid");
 
-        Log.d("1", childId.toString());
-        tasklist = new ArrayList[7];
-        for(int i = 0; i < tasklist.length; i++)
-        {
-            tasklist[i] = new ArrayList<Task>();
-        }
+        //tasklist contains list of tasks for each days in a week
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
-        tabIndex = 0;
-        tasklist[2].add(new Task("wash hands"));
-        tasklist[2].add(new Task("brush teeth"));
+        setViews();
+//////////////////////////////////////////////////
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
 
-        lv = (ListView) findViewById(R.id.taskListView);
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "open" item
+                SwipeMenuItem openItem = new SwipeMenuItem(
+                        getApplicationContext());
+                // set item background
+                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                        0xCE)));
+                // set item width
+                openItem.setWidth(170);
+                // set item title
+                openItem.setIcon(R.drawable.ic_edit);
+                openItem.setTitleColor(Color.WHITE);
+                // add to menu
+                menu.addMenuItem(openItem);
+
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                // set item background
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                        0x3F, 0x25)));
+                // set item width
+                deleteItem.setWidth(170);
+                // set a iconedit
+                deleteItem.setIcon(R.drawable.ic_delete);
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+        lvc.setMenuCreator(creator);
+        lvc.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+
+                        // open
+                        break;
+                    case 1:
+
+                        if(db.removeTask((Task)taskAdapter[tabIndex].getItem(position)))
+                        {
+                            taskAdapter[tabIndex].remove(taskAdapter[tabIndex].getItem(position));
+                            taskAdapter[tabIndex].notifyDataSetChanged();
+                        }
+                        else
+                        {
+                            Log.d("Bug: " ," deleting failed" );
+                        }
+                        // delete
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
+        //////////////////////////////////////////////////
+        tabIndex = 0; //set to monday; 'M'
+
+        db = new DatabaseHelper(getApplicationContext());
+        tasklist = db.queryInitTaskList(childId);
+
+
         taskAdapter = new ArrayAdapter[7];
+
+        //adapter for each tabs of days in a week
         for(int i = 0; i < taskAdapter.length; i++)
         {
             taskAdapter[i] = new ArrayAdapter(this, R.layout.listview_main, tasklist[i]);
         }
 
-        lv.setAdapter(taskAdapter[tabIndex]);
+        lvc.setAdapter(taskAdapter[tabIndex]);
 
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 tabIndex = tab.getPosition();
-                Log.e("1", Integer.toString(tabIndex));
-                lv.setAdapter(taskAdapter[tabIndex]);
+                lvc.setAdapter(taskAdapter[tabIndex]);
             }
 
             @Override
@@ -96,7 +164,7 @@ public class Main3Activity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +174,13 @@ public class Main3Activity extends AppCompatActivity {
                 //mBuilder.setTitle("Add Tssk");
 
                 final Spinner mSpinner = (Spinner) mView.findViewById(R.id.spinner);
+                checkBoxes[0] = mView.findViewById(R.id.mBox);
+                checkBoxes[1] = mView.findViewById(R.id.tuBox);
+                checkBoxes[2] = mView.findViewById(R.id.wBox);
+                checkBoxes[3] = mView.findViewById(R.id.thBox);
+                checkBoxes[4] = mView.findViewById(R.id.fBox);
+                checkBoxes[5] = mView.findViewById(R.id.saBox);
+                checkBoxes[6] = mView.findViewById(R.id.suBox);
                 final TimePicker startPicker = (TimePicker)mView.findViewById(R.id.simpleTimePicker);
                 final TimePicker endPicker = (TimePicker)mView.findViewById(R.id.endTimePicker);
                 ArrayAdapter<String> strAdapter = new ArrayAdapter<String>(Main3Activity.
@@ -116,6 +191,19 @@ public class Main3Activity extends AppCompatActivity {
                 mBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
+                        for(int j = 0; j < 7; j++)
+                        {
+                            if(checkBoxes[j].isChecked())
+                            {
+                                Task temp = new Task(mSpinner.getSelectedItem().toString(),childId,  startPicker.getCurrentHour(), startPicker.getCurrentMinute(), endPicker.getCurrentHour(),
+                                        endPicker.getCurrentMinute(), j);
+                                tasklist[j].add(temp);
+                                db.addTask(childId, temp);
+
+                            }
+                        }
+
                         //if(mSpinner.getSelectedItem().toString().equalsIgnoreCase("")){
                         //
                         //}
@@ -125,8 +213,10 @@ public class Main3Activity extends AppCompatActivity {
                         requesturl+= "&startTime=" + startPicker.getCurrentHour().toString() +":"+startPicker.getCurrentMinute().toString()+":00&endTime=";
                         requesturl+= endPicker.getCurrentHour().toString() +":"+endPicker.getCurrentMinute().toString()+":00&childid="+childId;
                         final String url = requesturl;
-                        Log.e("1", url);
-                        AsyncTask asyncTask = new AsyncTask()
+
+                        //Log.e("3", url);
+
+                        /*AsyncTask asyncTask = new AsyncTask()
                         {
                             @Override
                             protected Object doInBackground(Object[] objects) {
@@ -147,14 +237,14 @@ public class Main3Activity extends AppCompatActivity {
                             @Override
                             protected void onPostExecute(Object o)
                             {
-                                Log.e("1", o.toString());
+                                Log.e("3", o.toString());
 
                             }
 
-                        }.execute();
-                        tasklist[tabIndex].add(new Task(mSpinner.getSelectedItem().toString()));
+                        }.execute();*/
+
                         taskAdapter[tabIndex].notifyDataSetChanged();
-                        //lv.invalidateViews();
+
                     }
                 });
 
@@ -173,5 +263,17 @@ public class Main3Activity extends AppCompatActivity {
         });
 
     }
+
+    private void setViews()
+    {
+        lvc =  findViewById(R.id.taskListViewCustom);
+        fab = (FloatingActionButton)findViewById(R.id.fab);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        checkBoxes = new CheckBox[7];
+
+
+    }
+
+
 }
 

@@ -82,11 +82,17 @@
         app:layout_constraintVertical_bias="0.933"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
-    <ListView
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/taskListViewCustom"
+        android:layout_width="wrap_content"
+        android:layout_height="510dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"></com.baoyz.swipemenulistview.SwipeMenuListView>
+    <!--<ListView
         android:id="@+id/taskListView"
         android:layout_width="wrap_content"
         android:layout_height="510dp"
 
         android:layout_marginTop="56dp" />
-
+-->
 </RelativeLayout>

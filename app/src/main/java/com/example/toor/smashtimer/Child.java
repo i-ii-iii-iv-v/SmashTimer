@@ -4,19 +4,13 @@ public class Child {
 
     private String name;
     private String id;
-    private String email;
 
-    public Child(String name, String pId, String pEmail)
+    public Child(String name, String pId)
     {
         this.name = name;
         id = pId;
-        email = pEmail;
     }
 
-    public String getEmail()
-    {
-        return email;
-    }
 
     public String getid()
     {
