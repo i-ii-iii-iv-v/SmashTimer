@@ -1,8 +1,12 @@
 package com.example.toor.smashtimer;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -18,32 +22,59 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main3Activity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+    String[] listItems = {"eat", "poop", "drink", "sleep", "get dressed", "brush teeth", "sleep", "study"};
+    ArrayList<Task>[] tasklist;
+    ArrayAdapter[] taskAdapter;
+    ListView lv;
 
+    FloatingActionButton fab;
+    int tabIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        String childName = intent.getStringExtra("Child");
+        final String childId = intent.getStringExtra("childid");
+
+        Log.d("1", childId.toString());
+        tasklist = new ArrayList[7];
+        for(int i = 0; i < tasklist.length; i++)
+        {
+            tasklist[i] = new ArrayList<Task>();
+        }
+
+        fab = (FloatingActionButton)findViewById(R.id.fab);
+        tabIndex = 0;
+        tasklist[2].add(new Task("wash hands"));
+        tasklist[2].add(new Task("brush teeth"));
+
+        lv = (ListView) findViewById(R.id.taskListView);
+        taskAdapter = new ArrayAdapter[7];
+        for(int i = 0; i < taskAdapter.length; i++)
+        {
+            taskAdapter[i] = new ArrayAdapter(this, R.layout.listview_main, tasklist[i]);
+        }
+
+        lv.setAdapter(taskAdapter[tabIndex]);
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
@@ -51,9 +82,9 @@ public class Main3Activity extends AppCompatActivity {
         {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                Log.e("1", Integer.toString(position));
-
+                tabIndex = tab.getPosition();
+                Log.e("1", Integer.toString(tabIndex));
+                lv.setAdapter(taskAdapter[tabIndex]);
             }
 
             @Override
@@ -69,92 +100,78 @@ public class Main3Activity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Main3Activity.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
+                //mBuilder.setTitle("Add Tssk");
+
+                final Spinner mSpinner = (Spinner) mView.findViewById(R.id.spinner);
+                final TimePicker startPicker = (TimePicker)mView.findViewById(R.id.simpleTimePicker);
+                final TimePicker endPicker = (TimePicker)mView.findViewById(R.id.endTimePicker);
+                ArrayAdapter<String> strAdapter = new ArrayAdapter<String>(Main3Activity.
+                        this, android.R.layout.simple_spinner_item, listItems);
+                strAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mSpinner.setAdapter(strAdapter);
+
+                mBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //if(mSpinner.getSelectedItem().toString().equalsIgnoreCase("")){
+                        //
+                        //}
+                        //https://notifood.000webhostapp.com/addtask.php?username=aa&password=aa&task=eat%20lunch&startTime=6:30:00&endTime=7:00:00&childid=bb
+                        String requesturl = "https://notifood.000webhostapp.com/addtask.php?username=aa&password=aa&task=";
+                        requesturl+= mSpinner.getSelectedItem().toString().replace(" ", "%20");
+                        requesturl+= "&startTime=" + startPicker.getCurrentHour().toString() +":"+startPicker.getCurrentMinute().toString()+":00&endTime=";
+                        requesturl+= endPicker.getCurrentHour().toString() +":"+endPicker.getCurrentMinute().toString()+":00&childid="+childId;
+                        final String url = requesturl;
+                        Log.e("1", url);
+                        AsyncTask asyncTask = new AsyncTask()
+                        {
+                            @Override
+                            protected Object doInBackground(Object[] objects) {
+                                OkHttpClient client = new OkHttpClient();
+                                Request request = new Request.Builder().url(url).build();
+
+                                Response response = null;
+
+                                try{
+                                    response = client.newCall(request).execute();
+                                    return response.body().string();
+
+                                }catch(IOException e){
+                                    e.printStackTrace();
+                                }
+                                return null;
+                            }
+                            @Override
+                            protected void onPostExecute(Object o)
+                            {
+                                Log.e("1", o.toString());
+
+                            }
+
+                        }.execute();
+                        tasklist[tabIndex].add(new Task(mSpinner.getSelectedItem().toString()));
+                        taskAdapter[tabIndex].notifyDataSetChanged();
+                        //lv.invalidateViews();
+                    }
+                });
+
+                mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                mBuilder.setView(mView);
+                AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
             }
         });
 
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main3, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main3, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-    }
 }
+

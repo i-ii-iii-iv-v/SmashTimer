@@ -48,7 +48,7 @@ public class Main2Activity extends AppCompatActivity {
         tasklist.add(new Task("wash hands"));
         tasklist.add(new Task("brush teeth"));
 
-        lv = (ListView) findViewById(R.id.taskListView);
+        lv = (ListView) findViewById(R.id.taskListView2);
         taskAdapter = new ArrayAdapter(this, R.layout.listview_main, tasklist);
         lv.setAdapter(taskAdapter);
 

@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
+
                 final String requesturl ="https://notifood.000webhostapp.com/dLogin.php?username="+emailEditText.getText().toString()+"&password="+passwordEditText.getText().toString();
                 AsyncTask asyncTask = new AsyncTask()
                 {
@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity {
 
                     }
 
-                }.execute();*/
+                }.execute();
 
 
                 loginUser();

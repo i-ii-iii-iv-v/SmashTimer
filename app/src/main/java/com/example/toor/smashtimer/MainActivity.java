@@ -1,6 +1,7 @@
 package com.example.toor.smashtimer;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,11 +32,20 @@ public class MainActivity extends AppCompatActivity {
     makes list based on cl arraylist
      */
     ArrayAdapter adapter;
-
+    SQLiteDatabase SQLdb;
+    DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(!DatabaseHelper.checkDatabase(getApplicationContext()))
+        {
+            db = new DatabaseHelper(getApplicationContext());
+        }
+
+        SQLdb = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DatabaseHelper.DATABASE_NAME).toString(), null, OPEN_READWRITE, null);
+        DatabaseHelper.testQueries(SQLdb);
 
         cl = new ArrayList<Child>(); //initialize list
 

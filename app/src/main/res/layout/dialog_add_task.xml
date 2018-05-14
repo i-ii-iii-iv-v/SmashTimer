@@ -71,4 +71,147 @@
         android:layout_below="@+id/simpleTimePicker"
         android:gravity="center_vertical"
         android:text="End Time" />
+
+    <CheckBox
+        android:id="@+id/checkBox11"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="44dp"
+        android:layout_marginStart="30dp"
+        android:visibility="invisible"/>
+
+    <CheckBox
+        android:id="@+id/checkBox12"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/checkBox11"
+        android:layout_marginEnd="260dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox13"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/checkBox11"
+        android:layout_marginEnd= "220dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox14"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/checkBox11"
+        android:layout_marginEnd="180dp" />
+
+
+    <CheckBox
+        android:id="@+id/checkBox20"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/checkBox11"
+        android:layout_marginEnd="140dp" />
+    <CheckBox
+        android:id="@+id/checkBox19"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/checkBox11"
+        android:layout_marginEnd="100dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox21"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/checkBox11"
+        android:layout_marginEnd="60dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox22"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/checkBox11"
+        android:layout_marginEnd="20dp" />
+
+
+    <TextView
+        android:id="@+id/nullText"
+        android:layout_width="33dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBox11"
+        android:layout_below="@+id/checkBox11"
+        android:layout_marginTop="-44dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/monText"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:gravity = "center"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/nullText"
+        android:layout_marginEnd="260dp"
+        android:text="M" />
+
+    <TextView
+        android:id="@+id/tueText"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/nullText"
+        android:layout_marginEnd="220dp"
+        android:gravity="center"
+        android:text="Tu" />
+    <TextView
+        android:id="@+id/wedText"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/nullText"
+        android:layout_marginEnd="180dp"
+        android:gravity="center"
+        android:text="W" />
+
+    <TextView
+        android:id="@+id/thurText"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/nullText"
+        android:layout_marginEnd="140dp"
+        android:gravity="center"
+        android:text="Th" />
+
+    <TextView
+        android:id="@+id/friText"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/nullText"
+        android:layout_marginEnd="100dp"
+        android:gravity="center"
+        android:text="F" />
+    <TextView
+        android:id="@+id/satText"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/nullText"
+        android:layout_marginEnd="60dp"
+        android:gravity="center"
+        android:text="Sa" />
+    <TextView
+        android:id="@+id/sunText"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/nullText"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="Su" />
 </RelativeLayout>
