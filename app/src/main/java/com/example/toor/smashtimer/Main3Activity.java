@@ -49,7 +49,7 @@ public class Main3Activity extends AppCompatActivity {
     String[] listItems = {"eat", "poop", "drink", "sleep", "get dressed", "brush teeth", "sleep", "study"};
     ArrayList<Task>[] tasklist;
     ArrayAdapter[] taskAdapter;
-    ListView lv;
+    //ListView lv;
     DatabaseHelper db;
     CheckBox checkBoxes[];
     FloatingActionButton fab;

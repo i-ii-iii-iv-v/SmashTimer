@@ -176,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_TASKS, null, initialValues);
         //Log.d("5", Long.toString(db.insert(TABLE_TASKS, null, initialValues)));*/
 
-        //resetDatabase(TBTASKS);
+        //resetDatabase(TBTASKS|TBCHILD);
         //addChildTest("ksuk1996@gmail.com", "Alex");
         //addChildTest("ksuk2012@gmail.com", "KSY");
 

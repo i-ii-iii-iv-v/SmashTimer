@@ -1,0 +1,28 @@
+Task 
+id email groupid description starttime endtime day alarm 
+
+
+
+Querystore
+parentid string timecreate
+
+
+change tasks table to 7 columns of days of the week
+-alter table (database helper class), (init method)
+-change code so that it only inserts once (activity class)/(form)
+-chnage query (database helper class)
+
+integrate new ui
+
+make custom adapter 
+
+add log out option
+
+add new ui for other activities
+
+make new form
+-add alarm
+-new activity
+
+
+parse JSON
