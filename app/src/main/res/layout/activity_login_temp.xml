@@ -10,15 +10,16 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="234dp"
-        android:layout_height="202dp"
+        android:layout_width="260dp"
+        android:layout_height="138dp"
+
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp"
-        app:srcCompat="@drawable/logo4" />
+        android:layout_alignStart="@+id/emailEditText"
+        android:layout_marginTop="71dp"
+        app:srcCompat="@drawable/crackhg" />
 
     <EditText
-        android:id="@+id/idTextBox"
+        android:id="@+id/emailEditText"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -29,10 +30,12 @@
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
+        android:textColorHint="#fff"
+        android:textColor = "#fff"
         android:textSize="16dp" />
 
     <EditText
-        android:id="@+id/passwordTextBox"
+        android:id="@+id/passwordEditText"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -41,10 +44,14 @@
         android:background="#11000000"
         android:drawableLeft="@drawable/password_icon"
         android:ems="10"
+        android:textColor = "#fff"
         android:hint="Password"
+        android:textColorHint="#fff"
+
         android:inputType="textPersonName" />
 
     <android.support.v7.widget.CardView
+        android:id = "@+id/loginBtn"
         android:layout_width="251dp"
         android:layout_height="42dp"
         android:layout_alignParentBottom="true"
