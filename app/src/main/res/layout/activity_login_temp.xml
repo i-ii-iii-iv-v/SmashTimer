@@ -29,7 +29,6 @@
         android:drawableLeft="@drawable/id_icon"
         android:ems="10"
         android:hint="Username"
-        android:inputType="textPersonName"
         android:textColorHint="#fff"
         android:textColor = "#fff"
         android:textSize="16dp" />
@@ -48,7 +47,7 @@
         android:hint="Password"
         android:textColorHint="#fff"
 
-        android:inputType="textPersonName" />
+        android:inputType="textPassword" />
 
     <android.support.v7.widget.CardView
         android:id = "@+id/loginBtn"
