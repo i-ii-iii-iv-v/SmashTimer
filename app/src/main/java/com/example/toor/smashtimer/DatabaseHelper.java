@@ -33,6 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_QUERY_QUEUE = "QueryQueue";
     public static final String QUERY_QUEUE_COL_ID = "id";
     public static final String QUERY_QUEUE_QUERY = "queryStr";
+
     public static boolean checkDatabase(Context context)
     {
         File dbFile = context.getDatabasePath(DATABASE_NAME);
