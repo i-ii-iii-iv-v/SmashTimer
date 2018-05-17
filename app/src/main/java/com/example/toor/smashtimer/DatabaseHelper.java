@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int TBTASKS = 0x1;
     public static final int TBQUERY = 0x10;
     public static final String DATABASE_NAME = "SmashTimer.db";
-    public static final String TABLE_TASKS = "Tasks";
+    public static final String TABLE_TASK = "Task";
 
     public static final String TABLE_CHILDREN = "Children";
     public static final String CHILDREN_COL_CHILDID = "childid";
@@ -29,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TASKS_COL_STARTTIME = "startTime";
     public static final String TASKS_COL_ENDTIME = "endTime";
     public static final String TASKS_COL_DAYS = "day";
+    public static final String TASKS_COL_ALARM = "alarm";
 
     public static final String TABLE_QUERY_QUEUE = "QueryQueue";
     public static final String QUERY_QUEUE_COL_ID = "id";
@@ -47,12 +48,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_TASKS +" ( "
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_TASK +" ( "
                 +TASKS_COL_CHILDID + " varchar(50), "
                 + TASKS_COL_TASKNAME+ " varchar(255), "
                 + TASKS_COL_STARTTIME + " TIME, "
                 + TASKS_COL_ENDTIME + " TIME, "
-                + TASKS_COL_DAYS + " int" +");");
+                + TASKS_COL_DAYS + " int"
+                + TASKS_COL_ALARM + "tinyint" +");");
 
 
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CHILDREN +" ( "
@@ -93,8 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             tasklist[i] = new ArrayList<Task>();
         }
 
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_TASKS +" WHERE " + TASKS_COL_CHILDID + " = ?", arg);
-        //Cursor c = db.rawQuery("SELECT * FROM " + TABLE_TASKS , null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_TASK +" WHERE " + TASKS_COL_CHILDID + " = ?", arg);
         if(c.moveToFirst())
         {
             for(int i = 0; i < c.getCount(); i++)
@@ -112,8 +113,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 index2 = c.getString(c.getColumnIndex(TASKS_COL_ENDTIME)).indexOf(':', index+1);
                 int endMinute = Integer.parseInt(c.getString(c.getColumnIndex(TASKS_COL_ENDTIME)).substring(index+1,index2));
                 int day = c.getInt(c.getColumnIndex(TASKS_COL_DAYS));
-
-                tasklist[day].add(new Task(taskName, childid, startHour, startMinute, endHour, endMinute, day));
+                int alarm = c.getInt(c.getColumnIndex(TASKS_COL_ALARM));
+                tasklist[day].add(new Task(taskName, childid, startHour, startMinute, endHour, endMinute, day, alarm));
                 Log.d(Integer.toString(i), TASKS_COL_CHILDID +": " + c.getString(c.getColumnIndex(TASKS_COL_CHILDID)));
                 Log.d(Integer.toString(i), TASKS_COL_TASKNAME+": " + c.getString(c.getColumnIndex(TASKS_COL_TASKNAME)));
                 Log.d(Integer.toString(i), TASKS_COL_STARTTIME +": "+ c.getString(c.getColumnIndex(TASKS_COL_STARTTIME)));
@@ -135,7 +136,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         initialValues.put(TASKS_COL_STARTTIME, Integer.toString(task.getStartHour()) + ":" + task.getStartMin() + ":00");
         initialValues.put(TASKS_COL_ENDTIME, Integer.toString(task.getEndHour()) + ":" + task.getEndMin() + ":00");
         initialValues.put(TASKS_COL_DAYS, task.getDay());
-        db.insert(TABLE_TASKS, null, initialValues);
+        initialValues.put(TASKS_COL_ALARM, task.getAlarm());
+        db.insert(TABLE_TASK, null, initialValues);
     }
 
     public void addChildTest(String childid, String childname)
@@ -145,26 +147,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         initialValues.put(CHILDREN_COL_CHILDNAME, childname);
         db.insert(TABLE_CHILDREN, null, initialValues);
     }
-    public boolean removeTask(Task task)
-    {
-        String whereClause = TASKS_COL_CHILDID + " = ? AND " +
-                TASKS_COL_STARTTIME + " = ? AND " +
-                TASKS_COL_ENDTIME + " = ? AND " +
-                TASKS_COL_DAYS + " = ? AND " +
-                TASKS_COL_TASKNAME + " = ?";
-        String args[] = new String[]{
-                task.getChildid(),
-                Integer.toString(task.getStartHour()) + ":" + task.getStartMin() + ":00",
-                Integer.toString(task.getEndHour()) + ":" + task.getEndMin() + ":00",
-                Integer.toString(task.getDay()),
-                task.toString()
-        };
-        if (db.delete(TABLE_TASKS, whereClause, args) < 1)
-        {
-            return false;
-        }
-        return true;
-    }
+
     public void testQueries()
     {
         /*
@@ -174,8 +157,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         initialValues.put(TASKS_COL_STARTTIME, "12:12:00");
         initialValues.put(TASKS_COL_ENDTIME, "05:00:00");
         initialValues.put(TASKS_COL_DAYS, "1");
-        db.insert(TABLE_TASKS, null, initialValues);
-        //Log.d("5", Long.toString(db.insert(TABLE_TASKS, null, initialValues)));*/
+        db.insert(TABLE_TASK, null, initialValues);
+        //Log.d("5", Long.toString(db.insert(TABLE_TASK, null, initialValues)));*/
 
         //resetDatabase(TBTASKS|TBCHILD);
         //addChildTest("ksuk1996@gmail.com", "Alex");
@@ -204,7 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if((j&0x001) == 0x1)
         {
-            c = db.rawQuery("SELECT * FROM " + TABLE_TASKS, null);
+            c = db.rawQuery("SELECT * FROM " + TABLE_TASK, null);
             if(c.moveToFirst())
             {
                 for(int i = 0; i < c.getCount(); i++)
@@ -230,7 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void resetDatabase(int i)
     {
         if((i&0x001) == 0x1)
-            db.execSQL("DELETE FROM " + TABLE_TASKS);
+            db.execSQL("DELETE FROM " + TABLE_TASK);
 
         if((i&0x010) == 0x010)
             db.execSQL("DELETE FROM " + TABLE_QUERY_QUEUE);
@@ -239,6 +222,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("DELETE FROM " + TABLE_CHILDREN);
     }
 
+    public void deleteAllTasksChild(String childid)
+    {
+        String whereClause = TASKS_COL_CHILDID + " = ?";
+        String args[] = new String[]{childid};
+        db.delete(TABLE_TASK, whereClause, args);
+    }
+    public boolean removeTask(Task task)
+    {
+        String whereClause = TASKS_COL_CHILDID + " = ? AND " +
+                TASKS_COL_STARTTIME + " = ? AND " +
+                TASKS_COL_ENDTIME + " = ? AND " +
+                TASKS_COL_DAYS + " = ? AND " +
+                TASKS_COL_TASKNAME + " = ?";
+        String args[] = new String[]{
+                task.getChildid(),
+                Integer.toString(task.getStartHour()) + ":" + task.getStartMin() + ":00",
+                Integer.toString(task.getEndHour()) + ":" + task.getEndMin() + ":00",
+                Integer.toString(task.getDay()),
+                task.toString()
+        };
+        if (db.delete(TABLE_TASK, whereClause, args) < 1)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public void restoreAllTable()
+    {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASK);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHILDREN);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUERY_QUEUE);
+        db.execSQL("CREATE TABLE " + TABLE_TASK +" ( "
+                +TASKS_COL_CHILDID + " varchar(50), "
+                + TASKS_COL_TASKNAME+ " varchar(255), "
+                + TASKS_COL_STARTTIME + " TIME, "
+                + TASKS_COL_ENDTIME + " TIME, "
+                + TASKS_COL_DAYS + " int,"
+                + TASKS_COL_ALARM + " int" +");");
+
+
+        db.execSQL("CREATE TABLE " + TABLE_CHILDREN +" ( "
+                +CHILDREN_COL_CHILDID + " varchar(50), "
+                + CHILDREN_COL_CHILDNAME + " varchar(50) "  + ");");
+
+        db.execSQL("CREATE TABLE " + TABLE_QUERY_QUEUE +" ( "
+                + QUERY_QUEUE_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + QUERY_QUEUE_QUERY + " varchar(500) "  + ");");
+    }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DATABASE_NAME);

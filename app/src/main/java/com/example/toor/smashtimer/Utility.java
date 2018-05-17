@@ -22,4 +22,22 @@ public class Utility {
 
         return firstDate.before(secondDate);
     }
+
+    public static int TStoHour(String timestamp)
+    {
+        int index = timestamp.indexOf(':', 0);
+        int hour = Integer.parseInt(timestamp.substring(0,index));
+
+        return hour;
+    }
+
+    public static int TStoMin(String timestamp)
+    {
+        int index = timestamp.indexOf(':', 0);
+        int hour = Integer.parseInt(timestamp.substring(0,index));
+        int index2 = timestamp.indexOf(':', index+1);
+        int minute =  Integer.parseInt(timestamp.substring(index+1,index2));
+
+        return minute;
+    }
 }

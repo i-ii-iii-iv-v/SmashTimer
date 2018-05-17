@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     private void sync()
     {
 
-        //final String timestampurl = "http://comp4900group23.000webhostapp.com/getTimestamp.php?email="+mUsername;
+
         final String getChildurl = "http://comp4900group23.000webhostapp.com/users.php?groupId=" + mUsername;
 
         AsyncTask getChild = new AsyncTask()
