@@ -66,6 +66,7 @@ public class TaskList_Activity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter[tabIndex]);
 
+
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -74,9 +75,24 @@ public class TaskList_Activity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
+                listItems[tabIndex].remove(viewHolder.getAdapterPosition());
+                adapter[tabIndex].notifyDataSetChanged();
             }
         }).attachToRecyclerView(recyclerView);
+        /*new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                Log.e(Integer.toString(viewHolder.getAdapterPosition()), Integer.toString(listItems[tabIndex].size()));
+                listItems[tabIndex].remove(viewHolder.getAdapterPosition());
+                //adapter[tabIndex].notifyDataSetChanged();
+
+            }
+        }).attachToRecyclerView(recyclerView);*/
     }
 
     @Override

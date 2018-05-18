@@ -12,9 +12,7 @@
         android:layout_width="336dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
-        android:focusable="true"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
+
         app:cardElevation="5dp"
         app:cardBackgroundColor="#00FFFFFF">
         <!--app:cardBackgroundColor="@android:color/transparent"-->
@@ -84,7 +82,6 @@
                 android:layout_alignStart="@+id/taskName"
                 android:layout_below="@+id/taskName"
                 android:gravity="center_vertical"
-                android:textStyle = "bold"
                 android:text="Start:" />
 
             <TextView
@@ -95,7 +92,6 @@
                 android:layout_below="@+id/taskName"
                 android:layout_marginEnd="118dp"
                 android:gravity="center_vertical"
-                android:textStyle = "bold"
                 android:text="End:" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
