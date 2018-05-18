@@ -212,7 +212,7 @@ public class Login extends AppCompatActivity {
 
             //initial pull from database;
         }
-        Intent intent = new Intent (getBaseContext(), MainActivity.class);
+        Intent intent = new Intent (getBaseContext(), child_list_activity.class);
         intent.putExtra("username", mUsername);
         startActivity(intent);
         /*String email = emailEditText.getText().toString().trim();
