@@ -82,7 +82,7 @@ public class TaskList_Activity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final String deleteTaskurl = "http://comp4900group23.000webhostapp.com/removeTasks.php?email=" +childId
-                        +"&groupid="+ mUsername+ "&taskName="+listItems[tabIndex].get(viewHolder.getAdapterPosition()).toString()
+                        +"&groupid="+ mUsername+ "&taskName="+Utility.urlEncode(listItems[tabIndex].get(viewHolder.getAdapterPosition()).toString())
                         +"&start="+listItems[tabIndex].get(viewHolder.getAdapterPosition()).getStartTS() + "&end="
                         + listItems[tabIndex].get(viewHolder.getAdapterPosition()).getEndTS()+ "&day="
                         +listItems[tabIndex].get(viewHolder.getAdapterPosition()).getDay();

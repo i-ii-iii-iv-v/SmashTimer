@@ -1,9 +1,12 @@
 package com.example.toor.smashtimer;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,5 +56,13 @@ public class Utility {
         }
 
         return minute;
+    }
+
+    public static String urlEncode(String s)
+    {
+       s  = s.replace(" ", "%20");
+       Log.e("utility encodeer: ", s);
+
+        return s;
     }
 }
