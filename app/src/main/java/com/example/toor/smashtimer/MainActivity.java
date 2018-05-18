@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void startTaskActivity(int i)
     {
-        Intent intent = new Intent(this, Main3Activity.class);
+        Intent intent = new Intent(this, TaskList_Activity.class);
         Log.e("main", cl.get(i).getid());
         intent.putExtra("childid", cl.get(i).getid());
         startActivity(intent);

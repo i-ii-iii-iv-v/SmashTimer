@@ -40,4 +40,14 @@ public class Utility {
 
         return minute;
     }
+
+    public static String minuteFormat(String minute)
+    {
+        if(minute.length() == 1)
+        {
+            minute = "0"+ minute;
+        }
+
+        return minute;
+    }
 }

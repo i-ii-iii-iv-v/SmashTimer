@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/tools"
+        android:layout_width="336dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:elevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imageAlarmOff"
+                android:layout_width="75dp"
+                android:layout_height="74dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="23dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/alarmoff" />
+
+            <ImageView
+                android:id="@+id/imageAlarmOn"
+                android:layout_width="75dp"
+                android:layout_height="74dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="23dp"
+                app:srcCompat="@drawable/alarmon" />
+
+            <TextView
+                android:id="@+id/taskName"
+                android:layout_width="245dp"
+                android:layout_height="51dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:text="Eat Breakfast"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/sTime"
+                android:layout_width="38dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/taskName"
+                android:layout_toEndOf="@+id/textStart"
+                android:gravity="center_vertical"
+                android:text="9:30" />
+
+            <TextView
+                android:id="@+id/eTime"
+                android:layout_width="38dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/taskName"
+                android:layout_marginStart="-118dp"
+                android:layout_toEndOf="@+id/textEnd"
+                android:gravity="center_vertical"
+                android:text="12:30" />
+
+            <TextView
+                android:id="@+id/textStart"
+                android:layout_width="42dp"
+                android:layout_height="30dp"
+                android:layout_alignStart="@+id/taskName"
+                android:layout_below="@+id/taskName"
+                android:gravity="center_vertical"
+                android:text="Start:" />
+
+            <TextView
+                android:id="@+id/textEnd"
+                android:layout_width="37dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/taskName"
+                android:layout_marginEnd="118dp"
+                android:gravity="center_vertical"
+                android:text="End:" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
