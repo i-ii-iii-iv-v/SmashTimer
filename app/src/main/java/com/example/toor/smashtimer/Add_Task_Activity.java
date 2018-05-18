@@ -27,7 +27,7 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Main2Activity extends AppCompatActivity {
+public class Add_Task_Activity extends AppCompatActivity {
 
     FloatingActionButton fab;
     String[] listItems = {"eat", "poop", "drink", "sleep", "get dressed", "brush teeth", "sleep", "study"};

@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 
@@ -180,7 +181,17 @@ public class TaskList_Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton)findViewById(R.id.addtask);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (getBaseContext(), Add_Task_Activity.class);
+                intent.putExtra("childId", childId);
+                intent.putExtra("username", mUsername);
+                startActivity(intent);
+
+            }
+        });
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()

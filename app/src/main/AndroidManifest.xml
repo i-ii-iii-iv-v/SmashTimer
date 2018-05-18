@@ -15,7 +15,7 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Main2Activity"
+            android:name=".Add_Task_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
