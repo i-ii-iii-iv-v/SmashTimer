@@ -18,7 +18,7 @@ public class Task {
     private int endMinute;
     private int day;
     private String childid;
-
+    private int alarm;
 
 
     public int getStartHour()
@@ -41,13 +41,13 @@ public class Task {
     {
         return day;
     }
-
+    public int getAlarm(){return alarm;}
     public String getChildid()
     {
         return childid;
     }
 
-    public Task(String name, String childid, int sh, int sm, int eh, int em, int day)
+    public Task(String name, String childid, int sh, int sm, int eh, int em, int day, int alarm)
     {
         this.childid = childid;
         taskName = name;
@@ -56,6 +56,7 @@ public class Task {
         endHour = eh;
         endMinute = em;
         this.day = day;
+        this.alarm = alarm;
     }
 
     public String toString()
