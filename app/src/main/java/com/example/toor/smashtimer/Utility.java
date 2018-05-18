@@ -41,6 +41,10 @@ public class Utility {
         return minute;
     }
 
+    public static String taskTimeToTS(int hour, int min)
+    {
+        return ""+hour+":"+min+":"+"00" ;
+    }
     public static String minuteFormat(String minute)
     {
         if(minute.length() == 1)

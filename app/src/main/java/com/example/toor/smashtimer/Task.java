@@ -59,6 +59,16 @@ public class Task {
         this.alarm = alarm;
     }
 
+    public String getStartTS()
+    {
+        return Utility.taskTimeToTS(startHour, startMinute);
+    }
+
+    public String getEndTS()
+    {
+        return Utility.taskTimeToTS(endHour, endMinute);
+    }
+
     public String toString()
     {
         return taskName;

@@ -2,9 +2,11 @@ package com.example.toor.smashtimer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -41,11 +43,15 @@ public class TaskList_Activity extends AppCompatActivity {
     private TabLayout tabLayout;
     private FloatingActionButton fab;
 
+    private String mUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview_test);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        mUsername = preferences.getString("stusername", "");
 
         context = this;
         Intent intent = getIntent();
@@ -75,8 +81,72 @@ public class TaskList_Activity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                final String deleteTaskurl = "http://comp4900group23.000webhostapp.com/removeTasks.php?email=" +childId
+                        +"&groupid="+ mUsername+ "&taskName="+listItems[tabIndex].get(viewHolder.getAdapterPosition()).toString()
+                        +"&start="+listItems[tabIndex].get(viewHolder.getAdapterPosition()).getStartTS() + "&end="
+                        + listItems[tabIndex].get(viewHolder.getAdapterPosition()).getEndTS()+ "&day="
+                        +listItems[tabIndex].get(viewHolder.getAdapterPosition()).getDay();
+                Log.e("tasklistactivity: ", deleteTaskurl);
+
+                db.removeTask(listItems[tabIndex].get(viewHolder.getAdapterPosition()));
                 listItems[tabIndex].remove(viewHolder.getAdapterPosition());
-                adapter[tabIndex].notifyDataSetChanged();
+                recyclerView.removeViewAt(viewHolder.getAdapterPosition());
+                adapter[tabIndex].notifyItemRemoved(viewHolder.getAdapterPosition());
+
+
+                AsyncTask getTask = new AsyncTask()
+                {
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder().url(deleteTaskurl).build();
+
+                        Response response = null;
+
+                        try{
+                            response = client.newCall(request).execute();
+                            return response.body().string();
+
+                        }catch(IOException e){
+                            e.printStackTrace();
+                            //save it into query table
+                        }
+                        return null;
+                    }
+                    @Override
+                    protected void onPostExecute(Object o)
+                    {
+                        Log.e("main: ", "kk");
+                        String status;
+                        try
+                        {
+                            if(o == null)
+                            {
+                                return;
+                                //save in query table
+                            }
+                            JSONObject returnData = new JSONObject(o.toString());
+                            status = returnData.getString("status");
+                            if(status.equalsIgnoreCase("pass"))
+                            {
+                                return;
+                                //handle errors:
+                            }
+
+                            else
+                            {
+                                return;//??? what are the cases?
+                            }
+
+
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }.execute();
+                //adapter[tabIndex].notifyDataSetChanged();
             }
         }).attachToRecyclerView(recyclerView);
         /*new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
@@ -98,7 +168,7 @@ public class TaskList_Activity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        //sync();
+        sync();
         // put your code here...
 
     }
