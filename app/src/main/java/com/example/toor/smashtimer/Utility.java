@@ -61,7 +61,6 @@ public class Utility {
     public static String urlEncode(String s)
     {
        s  = s.replace(" ", "%20");
-       Log.e("utility encodeer: ", s);
 
         return s;
     }

@@ -63,14 +63,20 @@
 
                 <EditText
                     android:id="@+id/customTaskName"
-                    android:layout_width="match_parent"
+                    android:layout_width="291dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:hint="Enter Task Name"
+                    android:inputType="textLongMessage" />
+
+                <CheckBox
+                    android:id="@+id/taskNameCheckBox"
+                    android:layout_width="42dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:layout_margin="5dp"
-                    android:inputType="textLongMessage"
-                    android:hint="Enter Task Name" />
+                    android:layout_toStartOf="@+id/customTaskName" />
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
@@ -163,7 +169,7 @@
                     android:background="@android:color/darker_gray" />
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/mBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -172,7 +178,7 @@
                     android:layout_marginStart="14dp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/tuBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -181,7 +187,7 @@
                     android:layout_marginStart="58dp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox3"
+                    android:id="@+id/wBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -190,7 +196,7 @@
                     android:layout_marginStart="102dp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox4"
+                    android:id="@+id/thBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -199,7 +205,7 @@
                     android:layout_marginStart="146dp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/fBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -208,7 +214,7 @@
                     android:layout_marginStart="190dp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/saBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -217,7 +223,7 @@
                     android:layout_marginStart="234dp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox7"
+                    android:id="@+id/suBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -319,7 +325,7 @@
                 android:layout_height="match_parent">
 
                 <Switch
-                    android:id="@+id/switch1"
+                    android:id="@+id/alarmSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

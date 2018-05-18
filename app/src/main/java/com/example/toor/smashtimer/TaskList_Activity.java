@@ -95,7 +95,7 @@ public class TaskList_Activity extends AppCompatActivity {
                 adapter[tabIndex].notifyItemRemoved(viewHolder.getAdapterPosition());
 
 
-                AsyncTask getTask = new AsyncTask()
+                AsyncTask deleteTask = new AsyncTask()
                 {
                     @Override
                     protected Object doInBackground(Object[] objects) {
@@ -117,7 +117,6 @@ public class TaskList_Activity extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Object o)
                     {
-                        Log.e("main: ", "kk");
                         String status;
                         try
                         {
@@ -167,9 +166,24 @@ public class TaskList_Activity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         sync();
+        // put your code here...
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listItems = db.queryInitTaskList(childId);
+        adapter = new RecyclerView.Adapter[7];
+        for(int i = 0; i < adapter.length; i++)
+        {
+            adapter[i] = new TaskItemAdapter(listItems[i], context);
+        }
+
+        recyclerView.setAdapter(adapter[tabIndex]);
         // put your code here...
 
     }
@@ -230,6 +244,14 @@ public class TaskList_Activity extends AppCompatActivity {
                     return response.body().string();
 
                 }catch(IOException e){
+                    listItems = db.queryInitTaskList(childId);
+                    adapter = new RecyclerView.Adapter[7];
+                    for(int i = 0; i < adapter.length; i++)
+                    {
+                        adapter[i] = new TaskItemAdapter(listItems[i], context);
+                    }
+
+                    recyclerView.setAdapter(adapter[tabIndex]);
                     e.printStackTrace();
                 }
                 return null;

@@ -102,6 +102,7 @@ public class child_list_activity extends AppCompatActivity {
                     JSONObject returnData = new JSONObject(o.toString());
                     status = returnData.getString("status");
                     if (!status.equalsIgnoreCase("pass")) {
+
                         return;
                         //handle errors:
                     }
@@ -123,6 +124,7 @@ public class child_list_activity extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
+                    Log.e("childList: ", o.toString());
                     e.printStackTrace();
                 }
                 adapter = new ChildItemAdapter(cl, context);
