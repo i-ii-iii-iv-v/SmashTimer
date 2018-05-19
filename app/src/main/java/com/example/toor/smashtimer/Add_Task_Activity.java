@@ -38,10 +38,8 @@ import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 public class Add_Task_Activity extends AppCompatActivity {
 
     FloatingActionButton fab;
-    String[] listItems = {"eat", "poop", "drink", "sleep", "get dressed", "brush teeth", "sleep", "study"};
-    ArrayList<Task> tasklist;
-    ArrayAdapter taskAdapter;
-    ListView lv;
+    String[] listItems = {"Choose a task", "eat", "poop", "drink", "sleep", "get dressed", "brush teeth", "sleep", "study"};
+
 
     EditText customTaskNameEditText;
     Spinner taskListView;
@@ -73,7 +71,6 @@ public class Add_Task_Activity extends AppCompatActivity {
         endPicker = findViewById(R.id.endTimePicker);
 
         customTaskNameEditText = findViewById(R.id.customTaskName);
-        customTaskNameEditText.setFocusable(false);
         customTaskNameEditText.setEnabled(false);
         customTaskNameEditText.setBackgroundColor(Color.LTGRAY);
 
@@ -99,13 +96,11 @@ public class Add_Task_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 if(taskNameCheckbox.isChecked())
                 {
-                    customTaskNameEditText.setFocusable(true);
                     customTaskNameEditText.setEnabled(true);
                     customTaskNameEditText.setBackgroundColor(Color.WHITE);
                 }
                 else
                 {
-                    customTaskNameEditText.setFocusable(false);
                     customTaskNameEditText.setEnabled(false);
                     customTaskNameEditText.setBackgroundColor(Color.LTGRAY);
 

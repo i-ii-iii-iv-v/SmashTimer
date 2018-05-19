@@ -150,6 +150,7 @@ public class TaskList_Activity extends AppCompatActivity {
         sync();
     }
 
+    //don't change it to sync; for adding task function
     @Override
     public void onResume() {
         super.onResume();
