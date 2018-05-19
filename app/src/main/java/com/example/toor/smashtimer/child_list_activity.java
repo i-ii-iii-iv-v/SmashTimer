@@ -134,6 +134,8 @@ public class child_list_activity extends AppCompatActivity {
                     Log.e("childList: ", o.toString());
                     e.printStackTrace();
                 }
+                
+                cl = db.initChildList();
                 adapter = new ChildItemAdapter(cl, context);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
