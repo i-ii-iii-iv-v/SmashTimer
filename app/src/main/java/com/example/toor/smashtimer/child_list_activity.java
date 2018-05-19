@@ -41,6 +41,7 @@ public class child_list_activity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
+        finish();
         return;
     }
 
