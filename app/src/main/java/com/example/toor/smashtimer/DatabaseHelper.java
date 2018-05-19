@@ -115,11 +115,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int day = c.getInt(c.getColumnIndex(TASKS_COL_DAYS));
                 int alarm = c.getInt(c.getColumnIndex(TASKS_COL_ALARM));
                 tasklist[day].add(new Task(taskName, childid, startHour, startMinute, endHour, endMinute, day, alarm));
-                Log.d(Integer.toString(i), TASKS_COL_CHILDID +": " + c.getString(c.getColumnIndex(TASKS_COL_CHILDID)));
-                Log.d(Integer.toString(i), TASKS_COL_TASKNAME+": " + c.getString(c.getColumnIndex(TASKS_COL_TASKNAME)));
-                Log.d(Integer.toString(i), TASKS_COL_STARTTIME +": "+ c.getString(c.getColumnIndex(TASKS_COL_STARTTIME)));
-                Log.d(Integer.toString(i), TASKS_COL_ENDTIME +": "+ c.getString(c.getColumnIndex(TASKS_COL_ENDTIME)));
-                Log.d(Integer.toString(i), TASKS_COL_DAYS +": "+ c.getString(c.getColumnIndex(TASKS_COL_DAYS)));
+                //Log.d(Integer.toString(i), TASKS_COL_CHILDID +": " + c.getString(c.getColumnIndex(TASKS_COL_CHILDID)));
+                //Log.d(Integer.toString(i), TASKS_COL_TASKNAME+": " + c.getString(c.getColumnIndex(TASKS_COL_TASKNAME)));
+                //Log.d(Integer.toString(i), TASKS_COL_STARTTIME +": "+ c.getString(c.getColumnIndex(TASKS_COL_STARTTIME)));
+                //Log.d(Integer.toString(i), TASKS_COL_ENDTIME +": "+ c.getString(c.getColumnIndex(TASKS_COL_ENDTIME)));
+                //Log.d(Integer.toString(i), TASKS_COL_DAYS +": "+ c.getString(c.getColumnIndex(TASKS_COL_DAYS)));
                 c.moveToNext();
             }
 

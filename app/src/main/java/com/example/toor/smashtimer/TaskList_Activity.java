@@ -57,6 +57,7 @@ public class TaskList_Activity extends AppCompatActivity {
         context = this;
         Intent intent = getIntent();
         childId = intent.getStringExtra("childid");
+
         tabIndex = 0; //set to monday; 'M'
 
         setViews();
@@ -82,18 +83,14 @@ public class TaskList_Activity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                final String deleteTaskurl = "http://comp4900group23.000webhostapp.com/removeTasks.php?email=" +childId
-                        +"&groupid="+ mUsername+ "&taskName="+Utility.urlEncode(listItems[tabIndex].get(viewHolder.getAdapterPosition()).toString())
-                        +"&start="+listItems[tabIndex].get(viewHolder.getAdapterPosition()).getStartTS() + "&end="
-                        + listItems[tabIndex].get(viewHolder.getAdapterPosition()).getEndTS()+ "&day="
-                        +listItems[tabIndex].get(viewHolder.getAdapterPosition()).getDay();
-                Log.e("tasklistactivity: ", deleteTaskurl);
 
+                final String deleteTaskurl = WebService.removeTask(listItems[tabIndex].get(viewHolder.getAdapterPosition()), mUsername);
                 db.removeTask(listItems[tabIndex].get(viewHolder.getAdapterPosition()));
                 listItems[tabIndex].remove(viewHolder.getAdapterPosition());
                 recyclerView.removeViewAt(viewHolder.getAdapterPosition());
                 adapter[tabIndex].notifyItemRemoved(viewHolder.getAdapterPosition());
 
+                Log.e("tasklistactivity: ", deleteTaskurl);
 
                 AsyncTask deleteTask = new AsyncTask()
                 {
@@ -101,7 +98,6 @@ public class TaskList_Activity extends AppCompatActivity {
                     protected Object doInBackground(Object[] objects) {
                         OkHttpClient client = new OkHttpClient();
                         Request request = new Request.Builder().url(deleteTaskurl).build();
-
                         Response response = null;
 
                         try{
@@ -110,7 +106,6 @@ public class TaskList_Activity extends AppCompatActivity {
 
                         }catch(IOException e){
                             e.printStackTrace();
-                            //save it into query table
                         }
                         return null;
                     }
@@ -123,7 +118,6 @@ public class TaskList_Activity extends AppCompatActivity {
                             if(o == null)
                             {
                                 return;
-                                //save in query table
                             }
                             JSONObject returnData = new JSONObject(o.toString());
                             status = returnData.getString("status");
@@ -146,31 +140,14 @@ public class TaskList_Activity extends AppCompatActivity {
                     }
 
                 }.execute();
-                //adapter[tabIndex].notifyDataSetChanged();
             }
         }).attachToRecyclerView(recyclerView);
-        /*new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                Log.e(Integer.toString(viewHolder.getAdapterPosition()), Integer.toString(listItems[tabIndex].size()));
-                listItems[tabIndex].remove(viewHolder.getAdapterPosition());
-                //adapter[tabIndex].notifyDataSetChanged();
-
-            }
-        }).attachToRecyclerView(recyclerView);*/
     }
 
     @Override
     public void onStart() {
         super.onStart();
         sync();
-        // put your code here...
-
     }
 
     @Override
@@ -184,8 +161,6 @@ public class TaskList_Activity extends AppCompatActivity {
         }
 
         recyclerView.setAdapter(adapter[tabIndex]);
-        // put your code here...
-
     }
 
     private void setViews()
@@ -195,7 +170,7 @@ public class TaskList_Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        fab = (FloatingActionButton)findViewById(R.id.addtask);
+        fab = findViewById(R.id.addtask);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,8 +181,8 @@ public class TaskList_Activity extends AppCompatActivity {
 
             }
         });
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+        tabLayout = findViewById(R.id.tabs);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
             @Override
@@ -228,7 +203,7 @@ public class TaskList_Activity extends AppCompatActivity {
 
     private void sync()
     {
-        final String getTaskurl = "https://comp4900group23.000webhostapp.com/tasks.php?email=" + childId;
+        final String getTaskurl = WebService.getChildTask(childId);
 
         AsyncTask getTask = new AsyncTask()
         {
@@ -259,7 +234,6 @@ public class TaskList_Activity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o)
             {
-                Log.e("main: ", "kk");
                 String status;
                 try
                 {
@@ -272,7 +246,7 @@ public class TaskList_Activity extends AppCompatActivity {
                     if(!status.equalsIgnoreCase("pass"))
                     {
                         return;
-                        //handle errors:
+                        //error cases: this if statement should never happen
                     }
 
                     JSONArray rows = returnData.getJSONArray("data");
@@ -282,7 +256,6 @@ public class TaskList_Activity extends AppCompatActivity {
                     }
                     db.deleteAllTasksChild(childId);
                     int numRows = rows.length();
-                    //childlist = new JSONObject[numRows];
                     for(int i = 0; i < numRows; i++)
                     {
                         JSONObject row = rows.getJSONObject(i);
@@ -298,11 +271,9 @@ public class TaskList_Activity extends AppCompatActivity {
                         db.addTask(childId, task);
 
                     }
-                    //parseJson first
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    return;
                 }
                 listItems = db.queryInitTaskList(childId);
                 adapter = new RecyclerView.Adapter[7];

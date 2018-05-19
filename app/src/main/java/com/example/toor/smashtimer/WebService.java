@@ -15,4 +15,23 @@ public class WebService {
         String url = WEBURL + "/users.php?groupId=" + username;
         return url;
     }
+
+
+    public static String getChildTask(String childId)
+    {
+        String url = WEBURL + "/tasks.php?email=" +childId;
+        return url;
+    }
+
+    public static String removeTask(Task task, String parentId)
+    {
+        String url = WEBURL + "/removeTasks.php?email=" + task.getChildid() + "&groupid="+parentId +
+                "&taskName=" +Utility.urlEncode(task.toString()+ "&start=" + task.getStartTS() + "&end=" + task.getEndTS()+
+                "&day=" + task.getDay() + "&alarm=" +task.getAlarm());
+        return url;
+    }
+    public static String addTask(String parentId, Task task)
+    {
+        return null;
+    }
 }
