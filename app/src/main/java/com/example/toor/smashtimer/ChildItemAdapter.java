@@ -42,7 +42,6 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.View
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, TaskList_Activity.class);
-                Log.e("child adapter", childItem.getid());
                 intent.putExtra("childid", childItem.getid());
                 context.startActivity(intent);
             }
