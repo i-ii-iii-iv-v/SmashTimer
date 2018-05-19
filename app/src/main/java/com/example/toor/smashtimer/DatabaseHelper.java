@@ -53,8 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + TASKS_COL_TASKNAME+ " varchar(255), "
                 + TASKS_COL_STARTTIME + " TIME, "
                 + TASKS_COL_ENDTIME + " TIME, "
-                + TASKS_COL_DAYS + " int"
-                + TASKS_COL_ALARM + "tinyint" +");");
+                + TASKS_COL_DAYS + " int,"
+                + TASKS_COL_ALARM + " int" +");");
 
 
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CHILDREN +" ( "
