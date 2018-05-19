@@ -117,17 +117,11 @@ public class ChildList_activity extends AppCompatActivity {
                     JSONObject returnData = new JSONObject(o.toString());
                     status = returnData.getString("status");
                     if (!status.equalsIgnoreCase("pass")) {
-
-                        db.resetDatabase(DatabaseHelper.TBCHILD);
-                        syncLocal();
                         return;
                         //only case is when the parent id is deleted from the db
                     }
 
                     JSONArray rows = returnData.getJSONArray("data");
-                    if (rows == null) {//case where all the child has been erased from parent
-                        db.resetDatabase(DatabaseHelper.TBCHILD);
-                    }
 
                     //this erases all the childs in database for better sync erase following code and replace with sync algo
                     db.resetDatabase(DatabaseHelper.TBCHILD);

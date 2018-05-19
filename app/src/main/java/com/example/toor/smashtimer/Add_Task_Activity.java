@@ -31,6 +31,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -176,7 +179,26 @@ public class Add_Task_Activity extends AppCompatActivity {
                                             @Override
                                             protected void onPostExecute(Object o)
                                             {
+                                                String status;
+                                                try
+                                                {
+                                                    if(o == null)
+                                                    {
+                                                        return;
+                                                    }
+                                                    JSONObject returnData = new JSONObject(o.toString());
+                                                    status = returnData.getString("status");
+                                                    if(status.equalsIgnoreCase("pass"))
+                                                    {
+                                                        return;
+                                                        //handle errors:
+                                                    }
 
+                                                }
+                                                catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                    return;
+                                                }
                                             }
 
                                         }.execute();

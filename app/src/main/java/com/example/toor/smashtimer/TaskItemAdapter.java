@@ -1,11 +1,13 @@
 package com.example.toor.smashtimer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,8 +16,9 @@ import java.util.List;
 public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHolder>{
 
     ArrayList<Task> listItems;
-
-    public TaskItemAdapter(ArrayList<Task> listItems, Context context) {
+    String username;
+    public TaskItemAdapter(ArrayList<Task> listItems, Context context, String username) {
+        this.username = username;
         this.listItems = listItems;
         this.context = context;
     }
@@ -46,6 +49,25 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
             holder.onAlarm.setVisibility(View.VISIBLE);
             holder.offAlarm.setVisibility(View.GONE);
         }
+        final Task cpyTask = taskItem;
+        holder.layout.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Update_Task_Activity.class);
+                intent.putExtra("pTaskName", cpyTask.toString());
+                intent.putExtra("pStartHour", Integer.toString(cpyTask.getStartHour()));
+                intent.putExtra("pStartMinute", Integer.toString(cpyTask.getStartMin()));
+                intent.putExtra("pEndHour", Integer.toString(cpyTask.getEndHour()));
+                intent.putExtra("pEndMinute", Integer.toString(cpyTask.getEndMin()));
+                intent.putExtra("pDay", Integer.toString(cpyTask.getDay()));
+                intent.putExtra("pAlarm", Integer.toString(cpyTask.getAlarm()));
+                intent.putExtra("childId", cpyTask.getChildid());
+                intent.putExtra("username", username);
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -60,6 +82,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
         public TextView taskName;
         public ImageView onAlarm;
         public ImageView offAlarm;
+        public RelativeLayout layout;
         public ViewHolder(View itemView) {
             super(itemView);
             textStartTime = itemView.findViewById(R.id.sTime);
@@ -67,6 +90,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
             taskName = itemView.findViewById(R.id.taskName);
             onAlarm = itemView.findViewById(R.id.imageAlarmOn);
             offAlarm = itemView.findViewById(R.id.imageAlarmOff);
+            layout = itemView.findViewById(R.id.layout);
         }
     }
 }

@@ -44,7 +44,6 @@ public class TaskList_Activity extends AppCompatActivity {
     private FloatingActionButton fab;
 
     private String mUsername;
-    private SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +68,7 @@ public class TaskList_Activity extends AppCompatActivity {
         adapter = new RecyclerView.Adapter[7];
         for(int i = 0; i < adapter.length; i++)
         {
-            adapter[i] = new TaskItemAdapter(listItems[i], this);
+            adapter[i] = new TaskItemAdapter(listItems[i], this, mUsername);
         }
 
         recyclerView.setAdapter(adapter[tabIndex]);
@@ -80,6 +79,8 @@ public class TaskList_Activity extends AppCompatActivity {
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
             }
+
+
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
@@ -127,12 +128,6 @@ public class TaskList_Activity extends AppCompatActivity {
                                 //handle errors:
                             }
 
-                            else
-                            {
-                                return;//??? what are the cases?
-                            }
-
-
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
@@ -157,7 +152,7 @@ public class TaskList_Activity extends AppCompatActivity {
         adapter = new RecyclerView.Adapter[7];
         for(int i = 0; i < adapter.length; i++)
         {
-            adapter[i] = new TaskItemAdapter(listItems[i], context);
+            adapter[i] = new TaskItemAdapter(listItems[i], context, mUsername);
         }
 
         recyclerView.setAdapter(adapter[tabIndex]);}
@@ -171,23 +166,6 @@ public class TaskList_Activity extends AppCompatActivity {
 
     private void setViews()
     {
-        refreshLayout = findViewById(R.id.refreshLayout);
-        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.red), getResources().getColor(R.color.green), getResources().getColor(R.color.blue));
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshLayout.setRefreshing(true);
-                (new Handler()).postDelayed(new Runnable(){
-
-                    @Override
-                    public void run() {
-                        refreshLayout.setRefreshing(false);
-                        refresh();
-
-                    }
-                }, 2000);
-            }
-        });
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -265,10 +243,6 @@ public class TaskList_Activity extends AppCompatActivity {
                     }
 
                     JSONArray rows = returnData.getJSONArray("data");
-                    if(rows==null)
-                    {
-                        db.deleteAllTasksChild(childId);
-                    }
                     db.deleteAllTasksChild(childId);
                     int numRows = rows.length();
                     for(int i = 0; i < numRows; i++)
@@ -368,7 +342,7 @@ public class TaskList_Activity extends AppCompatActivity {
                 adapter = new RecyclerView.Adapter[7];
                 for(int i = 0; i < adapter.length; i++)
                 {
-                    adapter[i] = new TaskItemAdapter(listItems[i], context);
+                    adapter[i] = new TaskItemAdapter(listItems[i], context, mUsername);
                 }
 
                 recyclerView.setAdapter(adapter[tabIndex]);
