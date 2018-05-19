@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class child_list_activity extends AppCompatActivity {
+public class ChildList_activity extends AppCompatActivity {
 
     private String mUsername;
     private String mPassword;
