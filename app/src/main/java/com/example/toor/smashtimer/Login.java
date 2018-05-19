@@ -32,11 +32,15 @@ public class Login extends AppCompatActivity {
     private TextView loginFail;
     ProgressBar progressBar;
 
+    DatabaseHelper db;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_temp);
 
+        db = new DatabaseHelper(this);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         loginBtn = (CardView)findViewById(R.id.loginBtn);
@@ -157,12 +161,19 @@ public class Login extends AppCompatActivity {
         });
     }
 
+
     private void loginParent() {
         String mUsername = emailEditText.getText().toString();
         String mPassword = passwordEditText.getText().toString();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor editor = preferences.edit();
 
+        String prevUsername = preferences.getString("stusername", "");
+
+        if(!prevUsername.equals(mUsername))
+        {
+            db.resetDatabase(db.TBCHILD | db.TBTASKS);
+        }
         editor.putString("stusername", mUsername);
         editor.putString("stpassword", mPassword);
         editor.apply();

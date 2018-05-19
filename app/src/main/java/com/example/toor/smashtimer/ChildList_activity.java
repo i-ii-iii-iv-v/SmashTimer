@@ -41,8 +41,7 @@ public class ChildList_activity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        finish();
-        System.exit(0);
+        moveTaskToBack(true);
         return;
     }
 
@@ -62,19 +61,25 @@ public class ChildList_activity extends AppCompatActivity {
         db = new DatabaseHelper(getApplicationContext());
         context = this;
 
-        cl = db.initChildList(); //initialize list
 
-        adapter = new ChildItemAdapter(cl, this);
-        recyclerView.setAdapter(adapter);
 
     }
 
     @Override
     public void onResume(){
+        syncLocal();
         super.onResume();
         sync();
         // put your code here...
 
+    }
+
+    private void syncLocal()
+    {
+        cl = db.initChildList(); //initialize list
+
+        adapter = new ChildItemAdapter(cl, this);
+        recyclerView.setAdapter(adapter);
     }
 
     private void sync() {
@@ -113,6 +118,8 @@ public class ChildList_activity extends AppCompatActivity {
                     status = returnData.getString("status");
                     if (!status.equalsIgnoreCase("pass")) {
 
+                        db.resetDatabase(DatabaseHelper.TBCHILD);
+                        syncLocal();
                         return;
                         //only case is when the parent id is deleted from the db
                     }
@@ -120,7 +127,6 @@ public class ChildList_activity extends AppCompatActivity {
                     JSONArray rows = returnData.getJSONArray("data");
                     if (rows == null) {//case where all the child has been erased from parent
                         db.resetDatabase(DatabaseHelper.TBCHILD);
-                        return;
                     }
 
                     //this erases all the childs in database for better sync erase following code and replace with sync algo
@@ -133,24 +139,13 @@ public class ChildList_activity extends AppCompatActivity {
                 }
                 catch (JSONException e)
                 {
-                    Log.e("childlist: ", o.toString());
                     e.printStackTrace();
                     return;
                 }
 
-                cl = db.initChildList();
-                adapter = new ChildItemAdapter(cl, context);
-                recyclerView.setAdapter(adapter);
+                syncLocal();
             }
 
         }.execute();
-    }
-
-    private void startTaskActivity(int i)
-    {
-        Intent intent = new Intent(context, TaskList_Activity.class);
-        Log.e("main", cl.get(i).getid());
-        intent.putExtra("childid", cl.get(i).getid());
-        startActivity(intent);
     }
 }

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -41,6 +44,7 @@ public class TaskList_Activity extends AppCompatActivity {
     private FloatingActionButton fab;
 
     private String mUsername;
+    private SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,10 +151,8 @@ public class TaskList_Activity extends AppCompatActivity {
         sync();
     }
 
-    //don't change it to sync; for adding task function
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void syncLocal()
+    {
         listItems = db.queryInitTaskList(childId);
         adapter = new RecyclerView.Adapter[7];
         for(int i = 0; i < adapter.length; i++)
@@ -158,11 +160,34 @@ public class TaskList_Activity extends AppCompatActivity {
             adapter[i] = new TaskItemAdapter(listItems[i], context);
         }
 
-        recyclerView.setAdapter(adapter[tabIndex]);
+        recyclerView.setAdapter(adapter[tabIndex]);}
+
+    //don't change it to sync; for adding task function
+    @Override
+    public void onResume() {
+        super.onResume();
+        syncLocal();
     }
 
     private void setViews()
     {
+        refreshLayout = findViewById(R.id.refreshLayout);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.red), getResources().getColor(R.color.green), getResources().getColor(R.color.blue));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout.setRefreshing(true);
+                (new Handler()).postDelayed(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        refreshLayout.setRefreshing(false);
+                        refresh();
+
+                    }
+                }, 2000);
+            }
+        });
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -262,6 +287,80 @@ public class TaskList_Activity extends AppCompatActivity {
 
                     }
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                syncLocal();
+            }
+
+        }.execute();
+
+    }
+
+    private void refresh()
+    {
+        final String getTaskurl = WebService.getChildTask(childId);
+
+        AsyncTask getTask = new AsyncTask()
+        {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url(getTaskurl).build();
+
+                Response response = null;
+
+                try{
+                    response = client.newCall(request).execute();
+                    return response.body().string();
+
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Object o)
+            {
+                String status;
+                try
+                {
+                    if(o == null)
+                    {
+                        return;
+                    }
+                    JSONObject returnData = new JSONObject(o.toString());
+                    status = returnData.getString("status");
+                    if(!status.equalsIgnoreCase("pass"))
+                    {
+                        return;
+                        //error cases: this if statement should never happen
+                    }
+
+                    JSONArray rows = returnData.getJSONArray("data");
+                    if(rows==null)
+                    {
+                        db.deleteAllTasksChild(childId);
+                        return;
+                    }
+                    db.deleteAllTasksChild(childId);
+                    int numRows = rows.length();
+                    for(int i = 0; i < numRows; i++)
+                    {
+                        JSONObject row = rows.getJSONObject(i);
+                        Task task = new Task(row.getString("description"),
+                                row.getString("email"),
+                                Utility.TStoHour(row.getString("start")),
+                                Utility.TStoMin(row.getString("start")),
+                                Utility.TStoHour(row.getString("end")),
+                                Utility.TStoMin(row.getString("end")),
+                                Integer.parseInt(row.getString("day")),
+                                Integer.parseInt(row.getString("alarm")));
+
+                        db.addTask(childId, task);
+
+                    }
+                } catch (JSONException e) {//fail parsing json usually when webhost is sleeping
                     e.printStackTrace();
                     return;
                 }
