@@ -42,6 +42,7 @@ public class child_list_activity extends AppCompatActivity {
     public void onBackPressed()
     {
         finish();
+        System.exit(0);
         return;
     }
 
