@@ -217,14 +217,6 @@ public class TaskList_Activity extends AppCompatActivity {
                     return response.body().string();
 
                 }catch(IOException e){
-                    listItems = db.queryInitTaskList(childId);
-                    adapter = new RecyclerView.Adapter[7];
-                    for(int i = 0; i < adapter.length; i++)
-                    {
-                        adapter[i] = new TaskItemAdapter(listItems[i], context);
-                    }
-
-                    recyclerView.setAdapter(adapter[tabIndex]);
                     e.printStackTrace();
                 }
                 return null;

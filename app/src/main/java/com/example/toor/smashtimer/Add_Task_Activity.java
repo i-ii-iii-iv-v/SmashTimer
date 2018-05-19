@@ -70,6 +70,7 @@ public class Add_Task_Activity extends AppCompatActivity {
         childId = intent.getStringExtra("childId");
         mUsername = intent.getStringExtra("username");
 
+
         startPicker = findViewById(R.id.startTimePicker);
         endPicker = findViewById(R.id.endTimePicker);
 
@@ -138,28 +139,22 @@ public class Add_Task_Activity extends AppCompatActivity {
                                     break;
                                 }
 
-                                for(int i = 0; i < 7; i++)
-                                {
-                                    if(dayCheckboxes[i].isChecked())
-                                    {
+                                for(int i = 0; i < 7; i++) {
+                                    if (dayCheckboxes[i].isChecked()) {
                                         String taskName;
-                                        if(taskNameCheckbox.isChecked())
-                                        {
+                                        if (taskNameCheckbox.isChecked()) {
                                             taskName = customTaskNameEditText.getText().toString();
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             taskName = taskListView.getSelectedItem().toString();
                                         }
-                                        int j = alarmSwitch.isChecked()? 1: 0;
+                                        int j = alarmSwitch.isChecked() ? 1 : 0;
 
                                         Task temp = new Task(taskName, childId, startPicker.getCurrentHour(), startPicker.getCurrentMinute(),
-                                                endPicker.getCurrentHour(), endPicker.getCurrentMinute(), i, j );
+                                                endPicker.getCurrentHour(), endPicker.getCurrentMinute(), i, j);
                                         db.addTask(childId, temp);
                                         final String url = WebService.addTask(mUsername, temp);
 
-                                        AsyncTask addtaskTask = new AsyncTask()
-                                        {
+                                        AsyncTask addtaskTask = new AsyncTask() {
                                             @Override
                                             protected Object doInBackground(Object[] objects) {
                                                 OkHttpClient client = new OkHttpClient();
@@ -167,16 +162,17 @@ public class Add_Task_Activity extends AppCompatActivity {
 
                                                 Response response = null;
 
-                                                try{
+                                                try {
                                                     response = client.newCall(request).execute();
                                                     return response.body().string();
 
-                                                }catch(IOException e){
+                                                } catch (IOException e) {
                                                     e.printStackTrace();
                                                     //save it into query table
                                                 }
                                                 return null;
                                             }
+
                                             @Override
                                             protected void onPostExecute(Object o)
                                             {
