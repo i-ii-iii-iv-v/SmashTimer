@@ -9,4 +9,10 @@ public class WebService {
         String url = WEBURL + "/authUsers.php?email=" + username + "&password=" + password;
         return url;
     }
+
+    public static String getChildList(String username)
+    {
+        String url = WEBURL + "/users.php?groupId=" + username;
+        return url;
+    }
 }

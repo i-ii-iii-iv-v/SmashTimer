@@ -78,7 +78,7 @@ public class child_list_activity extends AppCompatActivity {
     private void sync() {
 
 
-        final String getChildurl = "http://comp4900group23.000webhostapp.com/users.php?groupId=" + mUsername;
+        final String getChildurl = WebService.getChildList(mUsername);
 
         AsyncTask getChild = new AsyncTask() {
             @Override
@@ -100,10 +100,11 @@ public class child_list_activity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Object o) {
-                Log.e("main: ", "kk");
                 String status;
-                try {
-                    if (o == null) {
+                try
+                {
+                    if (o == null)
+                    {
                         return;
                     }
                     JSONObject returnData = new JSONObject(o.toString());
@@ -111,34 +112,32 @@ public class child_list_activity extends AppCompatActivity {
                     if (!status.equalsIgnoreCase("pass")) {
 
                         return;
-                        //handle errors:
+                        //only case is when the parent id is deleted from the db
                     }
 
                     JSONArray rows = returnData.getJSONArray("data");
                     if (rows == null) {
                         return;
                     }
+
+                    //this erases all the childs in database for better sync erase following code and replace with sync algo
                     db.resetDatabase(DatabaseHelper.TBCHILD);
                     int numRows = rows.length();
-                    //childlist = new JSONObject[numRows];
                     for (int i = 0; i < numRows; i++) {
                         JSONObject row = rows.getJSONObject(i);
-                        db.addChildTest(row.getString("email"), "nulll");
-
-
+                        db.addChildTest(row.getString("email"), "");
                     }
-                    //parseJson first
-
-
-                } catch (JSONException e) {
-                    Log.e("childList: ", o.toString());
-                    e.printStackTrace();
                 }
-                
+                catch (JSONException e)
+                {
+                    Log.e("childlist: ", o.toString());
+                    e.printStackTrace();
+                    return;
+                }
+
                 cl = db.initChildList();
                 adapter = new ChildItemAdapter(cl, context);
                 recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
             }
 
         }.execute();
