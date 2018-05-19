@@ -146,7 +146,10 @@ public class Login extends AppCompatActivity {
                             role = returnData.getString("role");
 
                         } catch (JSONException e) {
+                            loginFail.setText("Service Unavaliable please try again later");
+                            acceptInput();
                             e.printStackTrace();
+                            return;
                         }
 
                         if(role.equalsIgnoreCase("parent"))

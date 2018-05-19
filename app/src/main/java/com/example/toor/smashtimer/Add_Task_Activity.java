@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -41,15 +42,17 @@ public class Add_Task_Activity extends AppCompatActivity {
     String[] listItems = {"Choose a task", "eat", "poop", "drink", "sleep", "get dressed", "brush teeth", "sleep", "study"};
 
 
-    EditText customTaskNameEditText;
-    Spinner taskListView;
-    CheckBox taskNameCheckbox;
-    CheckBox[] dayCheckboxes;
-    TimePicker startPicker;
-    TimePicker endPicker;
-    Switch alarmSwitch;
-
-    DatabaseHelper db;
+    private EditText customTaskNameEditText;
+    private Spinner taskListView;
+    private CheckBox taskNameCheckbox;
+    private CheckBox[] dayCheckboxes;
+    private TimePicker startPicker;
+    private TimePicker endPicker;
+    private Switch alarmSwitch;
+    private RelativeLayout customTaskLayout;
+    private DatabaseHelper db;
+    private TextView spinnerError;
+    private TextView dayError;
 
     private String mUsername;
     private String childId;
@@ -72,8 +75,11 @@ public class Add_Task_Activity extends AppCompatActivity {
 
         customTaskNameEditText = findViewById(R.id.customTaskName);
         customTaskNameEditText.setEnabled(false);
-        customTaskNameEditText.setBackgroundColor(Color.LTGRAY);
 
+        customTaskLayout = findViewById(R.id.customTaskLayout);
+        customTaskLayout.setBackgroundColor(Color.LTGRAY);
+
+        dayError = findViewById(R.id.dayError);
         dayCheckboxes = new CheckBox[7];
         dayCheckboxes[0] = findViewById(R.id.mBox);
         dayCheckboxes[1] = findViewById(R.id.tuBox);
@@ -85,6 +91,7 @@ public class Add_Task_Activity extends AppCompatActivity {
 
         alarmSwitch = findViewById(R.id.alarmSwitch);
 
+        spinnerError = findViewById(R.id.spinnerError);
         taskListView = findViewById(R.id.taskName);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, listItems);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -97,12 +104,12 @@ public class Add_Task_Activity extends AppCompatActivity {
                 if(taskNameCheckbox.isChecked())
                 {
                     customTaskNameEditText.setEnabled(true);
-                    customTaskNameEditText.setBackgroundColor(Color.WHITE);
+                    customTaskLayout.setBackgroundColor(Color.WHITE);
                 }
                 else
                 {
                     customTaskNameEditText.setEnabled(false);
-                    customTaskNameEditText.setBackgroundColor(Color.LTGRAY);
+                    customTaskLayout.setBackgroundColor(Color.LTGRAY);
 
                 }
 
@@ -120,13 +127,13 @@ public class Add_Task_Activity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_favorites: //cancel
-
+                                finish();
                                 break;
                             case R.id.action_schedules: //delete
 
                                 break;
                             case R.id.action_music: //ok
-                                if(!formvalidation())
+                                if(formvalidation() == false)
                                 {
                                     break;
                                 }
@@ -149,15 +156,8 @@ public class Add_Task_Activity extends AppCompatActivity {
                                         Task temp = new Task(taskName, childId, startPicker.getCurrentHour(), startPicker.getCurrentMinute(),
                                                 endPicker.getCurrentHour(), endPicker.getCurrentMinute(), i, j );
                                         db.addTask(childId, temp);
-                                        //http://comp4900group23.000webhostapp.com/addTasks.php?email=child@child.ca&groupid=parent@parent.ca&taskName=hihihi&start=12:00:00&end=6:00:00&day=1&alarm=1
-                                        final String url ="http://comp4900group23.000webhostapp.com/addTasks.php?email=" + childId
-                                                +"&groupid=" + mUsername
-                                                +"&taskName=" + Utility.urlEncode(temp.toString())
-                                                +"&start=" + temp.getStartTS()
-                                                +"&end=" + temp.getEndTS()
-                                                +"&day=" + temp.getDay()
-                                                +"&alarm="+ temp.getAlarm();
-                                        Log.e("url: ", url);
+                                        final String url = WebService.addTask(mUsername, temp);
+
                                         AsyncTask addtaskTask = new AsyncTask()
                                         {
                                             @Override
@@ -200,8 +200,38 @@ public class Add_Task_Activity extends AppCompatActivity {
 
     private boolean formvalidation()
     {
+        boolean flag = true;
+        if(taskNameCheckbox.isChecked())
+        {
+            if(customTaskNameEditText.getText().toString().equals(""))
+            {
+                customTaskNameEditText.setError("Enter task name");
+                flag = false;
+            }
+        }
+        else
+        {
+            if(taskListView.getSelectedItem().toString().equals("Choose a task"))
+            {
+                spinnerError.setError("Select a Task");
+                flag = false;
+            }
+        }
 
-        return true;
+        int count = 0;
+        for(int i = 0; i < 7; i++)
+        {
+            if(dayCheckboxes[i].isChecked())
+                count++;
+        }
+
+        if(count == 0)
+        {
+            dayError.setError("Please select desired days");
+            flag = false;
+        }
+
+        return flag;
     }
 
 }

@@ -136,6 +136,7 @@ public class TaskList_Activity extends AppCompatActivity {
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
+                            return;
                         }
                     }
 

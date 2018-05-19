@@ -30,8 +30,17 @@ public class WebService {
                 "&day=" + task.getDay() + "&alarm=" +task.getAlarm());
         return url;
     }
+
     public static String addTask(String parentId, Task task)
     {
-        return null;
+        String url = WEBURL + "/addTasks.php?email=" + task.getChildid()
+            +"&groupid=" + parentId
+            +"&taskName=" + Utility.urlEncode(task.toString())
+            +"&start=" + task.getStartTS()
+            +"&end=" + task.getEndTS()
+            +"&day=" + task.getDay()
+            +"&alarm="+ task.getAlarm();
+        return url;
     }
+
 }

@@ -29,6 +29,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/spinnerError"
+                    android:layout_width="26dp"
+                    android:layout_height="33dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="38dp"
+                    android:text="" />
+
                 <Spinner
                     android:id="@+id/taskName"
 
@@ -58,6 +67,7 @@
             android:layout_centerHorizontal="true">
 
             <RelativeLayout
+                android:id="@+id/customTaskLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -149,6 +159,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="135dp">
+
+                <TextView
+                    android:id="@+id/dayError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/textView4"
+                    android:layout_toEndOf="@+id/saBox"
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/textView4"

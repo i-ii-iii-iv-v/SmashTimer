@@ -118,7 +118,8 @@ public class child_list_activity extends AppCompatActivity {
                     }
 
                     JSONArray rows = returnData.getJSONArray("data");
-                    if (rows == null) {
+                    if (rows == null) {//case where all the child has been erased from parent
+                        db.resetDatabase(DatabaseHelper.TBCHILD);
                         return;
                     }
 
