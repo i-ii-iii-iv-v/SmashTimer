@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Utility {
+
     public static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
     public static boolean clientTSbeforeServerTs(String firstTS, String secondTS)
     {

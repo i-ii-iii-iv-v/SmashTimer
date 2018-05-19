@@ -39,9 +39,16 @@ public class child_list_activity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     @Override
+    public void onBackPressed()
+    {
+        return;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_list);
+
 
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
