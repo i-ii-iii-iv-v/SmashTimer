@@ -60,8 +60,9 @@ public class TaskList_Activity extends AppCompatActivity {
         tabIndex = 0; //set to monday; 'M'
 
         setViews();
-
         db = new DatabaseHelper(getApplicationContext());
+
+        db.showTables(db.TBTASKS);
         listItems = db.queryInitTaskList(childId);
 
         //adapter for each tabs of days in a week

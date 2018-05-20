@@ -114,7 +114,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int endMinute = Integer.parseInt(c.getString(c.getColumnIndex(TASKS_COL_ENDTIME)).substring(index+1,index2));
                 int day = c.getInt(c.getColumnIndex(TASKS_COL_DAYS));
                 int alarm = c.getInt(c.getColumnIndex(TASKS_COL_ALARM));
-                tasklist[day].add(new Task(taskName, childid, startHour, startMinute, endHour, endMinute, day, alarm));
+                if(day <= 6 && day >=0)
+                    tasklist[day].add(new Task(taskName, childid, startHour, startMinute, endHour, endMinute, day, alarm));
                 //Log.d(Integer.toString(i), TASKS_COL_CHILDID +": " + c.getString(c.getColumnIndex(TASKS_COL_CHILDID)));
                 //Log.d(Integer.toString(i), TASKS_COL_TASKNAME+": " + c.getString(c.getColumnIndex(TASKS_COL_TASKNAME)));
                 //Log.d(Integer.toString(i), TASKS_COL_STARTTIME +": "+ c.getString(c.getColumnIndex(TASKS_COL_STARTTIME)));
