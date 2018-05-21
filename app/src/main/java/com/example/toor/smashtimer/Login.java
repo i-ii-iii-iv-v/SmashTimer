@@ -180,6 +180,10 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent (getBaseContext(), ChildList_activity.class);
         intent.putExtra("username", mUsername);
         startActivity(intent);
+        progressBar.setVisibility(View.GONE);
+        loginBtn.setEnabled(true);
+        emailEditText.setEnabled(true);
+        passwordEditText.setEnabled(true);
     }
 
     private void acceptInput()

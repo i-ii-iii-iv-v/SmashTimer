@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -38,6 +39,7 @@ public class ChildList_activity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
+    private ImageButton logoutBtn;
     @Override
     public void onBackPressed()
     {
@@ -50,11 +52,19 @@ public class ChildList_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_list);
 
-
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        logoutBtn = findViewById(R.id.logoutBtn);
+        logoutBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                //logout goes here
+                finish();
+            }
+        });
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         mUsername = preferences.getString("stusername", "");
         mPassword = preferences.getString("stpassword", "");
