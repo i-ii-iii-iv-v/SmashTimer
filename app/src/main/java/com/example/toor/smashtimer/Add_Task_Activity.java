@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -79,9 +80,9 @@ public class Add_Task_Activity extends AppCompatActivity {
 
         customTaskNameEditText = findViewById(R.id.customTaskName);
         customTaskNameEditText.setEnabled(false);
+        customTaskNameEditText.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
 
         customTaskLayout = findViewById(R.id.customTaskLayout);
-        customTaskLayout.setBackgroundColor(Color.LTGRAY);
 
         dayError = findViewById(R.id.dayError);
         dayCheckboxes = new CheckBox[7];
@@ -108,12 +109,11 @@ public class Add_Task_Activity extends AppCompatActivity {
                 if(taskNameCheckbox.isChecked())
                 {
                     customTaskNameEditText.setEnabled(true);
-                    customTaskLayout.setBackgroundColor(Color.WHITE);
+
                 }
                 else
                 {
                     customTaskNameEditText.setEnabled(false);
-                    customTaskLayout.setBackgroundColor(Color.LTGRAY);
 
                 }
 

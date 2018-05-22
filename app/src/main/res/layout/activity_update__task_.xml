@@ -4,26 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@drawable/gradient">
+    <!--android:layout_marginTop="-900px"-->
     <!--android:layout_marginTop="-900px"-->
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:background="#FFF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_height="510dp"
+        android:background="@android:color/transparent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent">
 
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:clickable="true"
                 android:id="@+id/selectTask"
                 android:layout_width="338dp"
                 android:layout_height="64dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="18dp">
+                android:layout_marginTop="18dp"
+                android:clickable="true"
+                app:cardBackgroundColor="@android:color/transparent">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -63,8 +67,9 @@
                 android:layout_width="338dp"
                 android:layout_height="64dp"
                 android:layout_below="@+id/orText"
+                android:layout_centerHorizontal="true"
                 android:drawableLeft="@drawable/task_list_icon"
-                android:layout_centerHorizontal="true">
+                app:cardBackgroundColor="@android:color/transparent">
 
                 <RelativeLayout
                     android:id="@+id/customTaskLayout"
@@ -78,7 +83,9 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
                         android:hint="Enter Task Name"
-                        android:inputType="textLongMessage" />
+                        android:inputType="textLongMessage"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white" />
 
                     <CheckBox
                         android:id="@+id/taskNameCheckBox"
@@ -96,7 +103,8 @@
                 android:layout_height="456dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="197dp">
+                android:layout_marginTop="197dp"
+                app:cardBackgroundColor="@android:color/transparent">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -109,7 +117,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="14dp"
-                        android:text="Start Time:" />
+                        android:text="Start Time:"
+                        android:textColor="@android:color/white" />
 
                     <TimePicker
                         android:id="@+id/startTimePicker"
@@ -134,7 +143,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="193dp"
-                        android:text="End Time:" />
+                        android:text="End Time:"
+                        android:textColor="@android:color/white" />
 
                     <TimePicker
                         android:id="@+id/endTimePicker"
@@ -149,13 +159,15 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_marginBottom="100dp"
                 android:id="@+id/alarmCardView"
                 android:layout_width="338dp"
                 android:layout_height="64dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="680dp">
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="680dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -175,11 +187,12 @@
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
 
-                        android:gravity="center_vertical"
                         android:drawableLeft="@drawable/alarm"
-                        android:textSize = "30dp"
+                        android:gravity="center_vertical"
+                        android:text="  Reminder"
+                        android:textColor="@android:color/white"
 
-                        android:text="  Reminder" />
+                        android:textSize="30dp" />
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -190,8 +203,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        app:itemBackground="@android:color/transparent"
+        app:itemIconTint="#FFF"
+        app:itemTextColor="#FFF"
         app:menu="@menu/bottom_navigation_main" />
 </RelativeLayout>

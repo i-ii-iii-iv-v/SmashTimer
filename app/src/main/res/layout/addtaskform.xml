@@ -4,375 +4,403 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@drawable/gradient">
     <!--android:layout_marginTop="-900px"-->
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <RelativeLayout
-        android:background="#FFF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="510dp"
+        android:background="@android:color/transparent">
 
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:clickable="true"
-            android:id="@+id/selectTask"
-            android:layout_width="338dp"
-            android:layout_height="64dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/spinnerError"
-                    android:layout_width="26dp"
-                    android:layout_height="33dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="38dp"
-                    android:text="" />
-
-                <Spinner
-                    android:id="@+id/taskName"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:hint="Select one of the tasks in the list" />
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <TextView
-            android:id="@+id/orText"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="91dp"
-            android:text="OR" />
+            android:background="@android:color/transparent">
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/customTaskNameCard"
-            android:layout_width="338dp"
-            android:layout_height="64dp"
-            android:layout_below="@+id/orText"
-            android:drawableLeft="@drawable/task_list_icon"
-            android:layout_centerHorizontal="true">
 
-            <RelativeLayout
-                android:id="@+id/customTaskLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/selectTask"
+                android:layout_width="338dp"
+                android:layout_height="64dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:clickable="true"
+                app:cardBackgroundColor="@android:color/transparent">
 
-                <EditText
-                    android:id="@+id/customTaskName"
-                    android:layout_width="291dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:hint="Enter Task Name"
-                    android:inputType="textLongMessage" />
-
-                <CheckBox
-                    android:id="@+id/taskNameCheckBox"
-                    android:layout_width="42dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/customTaskName" />
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/timeCardView"
-            android:layout_width="338dp"
-            android:layout_height="456dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="197dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textStartTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="14dp"
-                    android:text="Start Time:" />
-
-                <TimePicker
-                    android:id="@+id/startTimePicker"
-                    android:layout_width="246dp"
-                    android:layout_height="162dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
-                    android:timePickerMode="spinner" />
-
-                <View
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:background="@android:color/darker_gray" />
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textEndTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="193dp"
-                    android:text="End Time:" />
+                    <TextView
+                        android:id="@+id/spinnerError"
+                        android:layout_width="26dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="38dp"
+                        android:text="" />
 
-                <TimePicker
-                    android:id="@+id/endTimePicker"
-                    android:layout_width="246dp"
-                    android:layout_height="162dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="19dp"
-                    android:timePickerMode="spinner" />
+                    <Spinner
+                        android:id="@+id/taskName"
 
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:gravity="center_vertical"
+                        android:hint="Select one of the tasks in the list" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/daySelectCardView"
-            android:layout_width="338dp"
-            android:layout_height="120dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="680dp">
+            <TextView
+                android:id="@+id/orText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="91dp"
+                android:text="OR" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="135dp">
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/customTaskNameCard"
+                android:layout_width="338dp"
+                android:layout_height="64dp"
+                android:layout_below="@+id/orText"
+                android:layout_centerHorizontal="true"
+                android:drawableLeft="@drawable/task_list_icon"
+                app:cardBackgroundColor="@android:color/transparent">
 
-                <TextView
-                    android:id="@+id/dayError"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/textView4"
-                    android:layout_toEndOf="@+id/saBox"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="11dp"
-                    android:text="Days of the Week" />
-
-                <View
+                <RelativeLayout
+                    android:id="@+id/customTaskLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="37dp"
-                    android:background="@android:color/darker_gray" />
+                    android:layout_height="match_parent">
 
-                <CheckBox
-                    android:id="@+id/mBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="60dp"
-                    android:layout_marginStart="14dp" />
+                    <EditText
+                        android:id="@+id/customTaskName"
+                        android:layout_width="291dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:hint="Enter Task Name"
+                        android:inputType="textLongMessage"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white" />
 
-                <CheckBox
-                    android:id="@+id/tuBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="60dp"
-                    android:layout_marginStart="58dp" />
+                    <CheckBox
+                        android:id="@+id/taskNameCheckBox"
+                        android:layout_width="42dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/customTaskName" />
+                </RelativeLayout>
 
-                <CheckBox
-                    android:id="@+id/wBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="60dp"
-                    android:layout_marginStart="102dp" />
+            </android.support.v7.widget.CardView>
 
-                <CheckBox
-                    android:id="@+id/thBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="60dp"
-                    android:layout_marginStart="146dp" />
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/timeCardView"
+                android:layout_width="338dp"
+                android:layout_height="456dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="197dp"
+                app:cardBackgroundColor="@android:color/transparent">
 
-                <CheckBox
-                    android:id="@+id/fBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="60dp"
-                    android:layout_marginStart="190dp" />
-
-                <CheckBox
-                    android:id="@+id/saBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="60dp"
-                    android:layout_marginStart="234dp" />
-
-                <CheckBox
-                    android:id="@+id/suBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="60dp"
-                    android:layout_marginStart="278dp" />
-
-                <TextView
-                    android:id="@+id/mText"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="27dp"
-                    android:layout_marginStart="14dp"
-                    android:gravity="center"
-                    android:text="M"
-                    android:textSize="15dp" />
-                <TextView
-                    android:id="@+id/tuText"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="27dp"
-                    android:layout_marginStart="58dp"
-                    android:gravity="center"
-                    android:text="Tu"
-                    android:textSize="15dp" />
-                <TextView
-                    android:id="@+id/wText"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="27dp"
-                    android:layout_marginStart="102dp"
-                    android:gravity="center"
-                    android:text="W"
-                    android:textSize="15dp" />
-                <TextView
-                    android:id="@+id/thText"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="27dp"
-                    android:layout_marginStart="146dp"
-                    android:gravity="center"
-                    android:text="Th"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/fText"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="27dp"
-                    android:layout_marginStart="190dp"
-                    android:gravity="center"
-                    android:text="F"
-                    android:textSize="15dp" />
-                <TextView
-                    android:id="@+id/saText"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="27dp"
-                    android:layout_marginStart="234dp"
-                    android:gravity="center"
-                    android:text="Sa"
-                    android:textSize="15dp" />
-                <TextView
-                    android:id="@+id/suText"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="27dp"
-                    android:layout_marginStart="278dp"
-                    android:gravity="center"
-                    android:text="Su"
-                    android:textSize="15dp" />
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_marginBottom="100dp"
-            android:id="@+id/alarmCardView"
-            android:layout_width="338dp"
-            android:layout_height="64dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="840dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Switch
-                    android:id="@+id/alarmSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="26dp" />
-
-                <TextView
-                    android:id="@+id/textView6"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
+                    android:layout_height="match_parent">
 
-                    android:gravity="center_vertical"
-                    android:drawableLeft="@drawable/alarm"
-                    android:textSize = "30dp"
+                    <TextView
+                        android:id="@+id/textStartTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="14dp"
+                        android:text="Start Time:"
+                        android:textColor="@android:color/white" />
 
-                    android:text="  Reminder" />
+                    <TimePicker
+                        android:id="@+id/startTimePicker"
+                        android:layout_width="246dp"
+                        android:layout_height="162dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="40dp"
+                        android:timePickerMode="spinner" />
 
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/textEndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="193dp"
+                        android:text="End Time:"
+                        android:textColor="@android:color/white" />
+
+                    <TimePicker
+                        android:id="@+id/endTimePicker"
+                        android:layout_width="246dp"
+                        android:layout_height="162dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="19dp"
+                        android:timePickerMode="spinner" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/daySelectCardView"
+                android:layout_width="338dp"
+                android:layout_height="120dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="680dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="135dp">
+
+                    <TextView
+                        android:id="@+id/dayError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/textView4"
+                        android:layout_toEndOf="@+id/saBox"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="11dp"
+                        android:text="Days of the Week"
+                        android:textColor="@android:color/white" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="37dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <CheckBox
+                        android:id="@+id/mBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="60dp"
+                        android:layout_marginStart="14dp" />
+
+                    <CheckBox
+                        android:id="@+id/tuBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="60dp"
+                        android:layout_marginStart="58dp" />
+
+                    <CheckBox
+                        android:id="@+id/wBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="60dp"
+                        android:layout_marginStart="102dp" />
+
+                    <CheckBox
+                        android:id="@+id/thBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="60dp"
+                        android:layout_marginStart="146dp" />
+
+                    <CheckBox
+                        android:id="@+id/fBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="60dp"
+                        android:layout_marginStart="190dp" />
+
+                    <CheckBox
+                        android:id="@+id/saBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="60dp"
+                        android:layout_marginStart="234dp" />
+
+                    <CheckBox
+                        android:id="@+id/suBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="60dp"
+                        android:layout_marginStart="278dp" />
+
+                    <TextView
+                        android:id="@+id/mText"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="27dp"
+                        android:layout_marginStart="14dp"
+                        android:gravity="center"
+                        android:text="M"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/tuText"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="27dp"
+                        android:layout_marginStart="58dp"
+                        android:gravity="center"
+                        android:text="Tu"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/wText"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="27dp"
+                        android:layout_marginStart="102dp"
+                        android:gravity="center"
+                        android:text="W"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/thText"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="27dp"
+                        android:layout_marginStart="146dp"
+                        android:gravity="center"
+                        android:text="Th"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/fText"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="27dp"
+                        android:layout_marginStart="190dp"
+                        android:gravity="center"
+                        android:text="F"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/saText"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="27dp"
+                        android:layout_marginStart="234dp"
+                        android:gravity="center"
+                        android:text="Sa"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/suText"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="27dp"
+                        android:layout_marginStart="278dp"
+                        android:gravity="center"
+                        android:text="Su"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/alarmCardView"
+                android:layout_width="338dp"
+                android:layout_height="64dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="840dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Switch
+                        android:id="@+id/alarmSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="26dp" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+
+                        android:drawableLeft="@drawable/alarm"
+                        android:gravity="center_vertical"
+                        android:text="  Reminder"
+
+                        android:textColor="@android:color/white"
+                        android:textSize="30dp" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
     </ScrollView>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/bottom_navigation_main" />
+        app:itemBackground="@android:color/transparent"
+        app:itemIconTint="#FFF"
+        app:itemTextColor="#FFF"
+        app:menu="@menu/bottom_navigation_main"
+        />
 </RelativeLayout>

@@ -47,7 +47,6 @@ public class Update_Task_Activity extends AppCompatActivity {
     private RelativeLayout customTaskLayout;
     private DatabaseHelper db;
     private TextView spinnerError;
-
     private String mUsername;
     private String childId;
 
@@ -98,6 +97,9 @@ public class Update_Task_Activity extends AppCompatActivity {
         customTaskNameEditText.setText(pTaskName);
         customTaskNameEditText.clearFocus();
 
+        customTaskLayout = findViewById(R.id.customTaskLayout);
+        customTaskLayout.setBackgroundColor(Color.TRANSPARENT);
+
         alarmSwitch = findViewById(R.id.alarmSwitch);
         if(pAlarm ==1)
             alarmSwitch.setChecked(true);
@@ -115,13 +117,11 @@ public class Update_Task_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 if(taskNameCheckbox.isChecked())
                 {
-                    customTaskNameEditText.setEnabled(true);
-                    customTaskLayout.setBackgroundColor(Color.WHITE);
+                    customTaskNameEditText.setEnabled(false);
                 }
                 else
                 {
-                    customTaskNameEditText.setEnabled(false);
-                    customTaskLayout.setBackgroundColor(Color.LTGRAY);
+                    customTaskNameEditText.setEnabled(true);
 
                 }
 

@@ -15,12 +15,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="42dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="23dp"
         android:background="?android:attr/selectableItemBackground"
-        android:focusable="true"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:focusable="true"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        android:backgroundTint="#fbc2eb"/>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

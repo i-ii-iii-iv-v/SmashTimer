@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.toor.smashtimer">
-
     <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -29,7 +29,8 @@
         <activity
             android:name=".ChildList_activity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Update_Task_Activity"></activity>
+        <activity android:name=".Update_Task_Activity"
+            android:theme="@style/AppTheme.NoActionBar" ></activity>
     </application>
 
 </manifest>
